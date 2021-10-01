@@ -11,13 +11,13 @@ namespace PdfTool
         {
             var directory = Path.GetDirectoryName(fullPath);
 
-            var outputDirectory  = Path.Combine(directory, Path.GetFileNameWithoutExtension(fullPath));
+            var outputDirectory = Path.Combine(directory, Path.GetFileNameWithoutExtension(fullPath));
 
             Directory.CreateDirectory(outputDirectory);
 
             using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(fullPath)))
             {
-                for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
+                for (int page = 0; page <= pdfDocument.GetNumberOfPages(); page++)
                 {
                     string outputPdfPath = Path.Combine(outputDirectory, $"page_{page}.pdf");
 
