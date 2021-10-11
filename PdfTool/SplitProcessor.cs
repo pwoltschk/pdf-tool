@@ -17,7 +17,7 @@ namespace PdfTool
 
             using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(fullPath)))
             {
-                for (int page = 0; page <= pdfDocument.GetNumberOfPages(); page++)
+                for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
                 {
                     string outputPdfPath = Path.Combine(outputDirectory, $"page_{page}.pdf");
 
