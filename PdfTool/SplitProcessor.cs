@@ -1,13 +1,12 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using iText.Kernel.Pdf;
+﻿using iText.Kernel.Pdf;
+using System.IO;
 using Path = System.IO.Path;
 
 namespace PdfTool
 {
     internal class SplitProcessor
     {
-        public async Task SplitAsync(string fullPath)
+        public void Split(string fullPath)
         {
             var directory = Path.GetDirectoryName(fullPath);
 

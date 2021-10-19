@@ -1,14 +1,10 @@
-﻿using System.Threading.Tasks;
-
-namespace PdfTool
+﻿namespace PdfTool
 {
     internal class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            var processor = new SplitProcessor().SplitAsync("C:\\Users\\wopa\\Documents\\starvpn.pdf");
-
-
+            new SplitProcessor().Split("C:\\Users\\pawel\\Documents\\cv.pdf");
 
         }
     }
