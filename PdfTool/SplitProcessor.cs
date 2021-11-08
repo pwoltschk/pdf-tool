@@ -10,7 +10,9 @@ namespace PdfTool
         {
             var directory = Path.GetDirectoryName(fullPath);
 
-            var outputDirectory = Path.Combine(directory, Path.GetFileNameWithoutExtension(fullPath));
+            var filename = Path.GetFileNameWithoutExtension(fullPath);
+
+            var outputDirectory = Path.Combine(directory, filename);
 
             Directory.CreateDirectory(outputDirectory);
 
@@ -18,7 +20,7 @@ namespace PdfTool
             {
                 for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
                 {
-                    string outputPdfPath = Path.Combine(outputDirectory, $"page_{page}.pdf");
+                    string outputPdfPath = Path.Combine(outputDirectory, $"{filename}_{page}.pdf");
 
                     using (PdfDocument outputDocument = new PdfDocument(new PdfWriter(outputPdfPath)))
                     {
