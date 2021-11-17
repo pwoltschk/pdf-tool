@@ -9,16 +9,13 @@ namespace PdfTool
 {
     internal class MergeProcessor
     {
-        void Merge()
+        void Merge(string pdf1, string pdf2)
         {
-            string pdfFile1 = "file1.pdf";
-            string pdfFile2 = "file2.pdf"; 
             string outputPdfPath = "file_merged.pdf"; 
 
             using (PdfDocument mergedPdfDocument = new PdfDocument(new PdfWriter(outputPdfPath)))
             {
-              
-                foreach (string pdfFile in new[] { pdfFile1, pdfFile2 })
+                foreach (string pdfFile in new[] { pdf1, pdf2 })
                 {
                     using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfFile)))
                     {
