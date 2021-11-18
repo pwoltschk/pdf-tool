@@ -1,6 +1,7 @@
 ﻿using iText.Kernel.Pdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,11 @@ namespace PdfTool
 {
     internal class MergeProcessor
     {
-        void Merge(string pdf1, string pdf2)
+        public void Merge(string pdf1, string pdf2)
         {
-            string outputPdfPath = "file_merged.pdf"; 
+            var outputPdfPath = Path.GetFullPath(pdf1);
 
-            using (PdfDocument mergedPdfDocument = new PdfDocument(new PdfWriter(outputPdfPath)))
+            using (PdfDocument mergedPdfDocument = new PdfDocument(new PdfWriter($"{outputPdfPath}_merged.pdf")))
             {
                 foreach (string pdfFile in new[] { pdf1, pdf2 })
                 {

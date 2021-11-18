@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            new SplitProcessor().Split("C:\\Users\\pawel\\Documents\\cv.pdf");
+            new MergeProcessor().Merge("C:\\Users\\pawel\\Documents\\cv1.pdf", "C:\\Users\\pawel\\Documents\\cv2.pdf");
         }
     }
 }
