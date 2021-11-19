@@ -1,10 +1,6 @@
 ﻿using iText.Kernel.Pdf;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PdfTool
 {
@@ -16,7 +12,7 @@ namespace PdfTool
 
             using (PdfDocument mergedPdfDocument = new PdfDocument(new PdfWriter($"{outputPdfPath}_merged.pdf")))
             {
-                foreach (string pdfFile in  pdf)
+                foreach (string pdfFile in pdf)
                 {
                     using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfFile)))
                     {
