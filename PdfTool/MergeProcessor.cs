@@ -10,13 +10,13 @@ namespace PdfTool
 {
     internal class MergeProcessor
     {
-        public void Merge(string pdf1, string pdf2)
+        public void Merge(params string[] pdf)
         {
-            var outputPdfPath = Path.GetFullPath(pdf1);
+            var outputPdfPath = Path.GetFullPath(pdf.First());
 
             using (PdfDocument mergedPdfDocument = new PdfDocument(new PdfWriter($"{outputPdfPath}_merged.pdf")))
             {
-                foreach (string pdfFile in new[] { pdf1, pdf2 })
+                foreach (string pdfFile in  pdf)
                 {
                     using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfFile)))
                     {
