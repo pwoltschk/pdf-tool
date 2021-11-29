@@ -1,4 +1,7 @@
-﻿using iText.Kernel.Pdf;
+﻿using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Xobject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +14,22 @@ namespace PdfTool
     {
         public void Delete(string inputPdfPath, string outputPdfPath, int pageToDelete)
         {
-            using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(inputPdfPath), new PdfWriter(outputPdfPath)))
+            using (PdfDocument inputPdfDocument = new PdfDocument(new PdfReader(inputPdfPath)))
+            using (PdfDocument outputPdfDocument = new PdfDocument(new PdfWriter(outputPdfPath)))
             {
-                pdfDocument.GetPage(pageToDelete).GetPdfObject().Remove();
+                int pageCount = inputPdfDocument.GetNumberOfPages();
+
+                for (int page = 1; page <= pageCount; page++)
+                {
+                    if (page != pageToDelete)
+                    {
+                        PdfPage pdfPage = inputPdfDocument.GetPage(page);
+                        PdfFormXObject pageCopy = pdfPage.CopyAsFormXObject(outputPdfDocument);
+                        PageSize pageSize = pdfPage.GetPageSize() as PageSize;
+                        outputPdfDocument.AddNewPage(pageSize);
+                        new PdfCanvas(outputPdfDocument.GetLastPage()).AddXObject(pageCopy, 0, 0);
+                    }
+                }
             }
         }
     }
