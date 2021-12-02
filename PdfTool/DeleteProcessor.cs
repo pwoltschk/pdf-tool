@@ -4,16 +4,19 @@ using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Path = System.IO.Path;
 
 namespace PdfTool
 {
     internal class DeleteProcessor
     {
-        public void Delete(string inputPdfPath, string outputPdfPath, int pageToDelete)
+        public void Delete(string inputPdfPath, int pageToDelete)
         {
+            var outputPdfPath = $"{Path.GetFileNameWithoutExtension(inputPdfPath)}_removedPage{pageToDelete}.pdf";
             using (PdfDocument inputPdfDocument = new PdfDocument(new PdfReader(inputPdfPath)))
             using (PdfDocument outputPdfDocument = new PdfDocument(new PdfWriter(outputPdfPath)))
             {
