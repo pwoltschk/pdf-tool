@@ -16,7 +16,8 @@ namespace PdfTool
     {
         public void Delete(string inputPdfPath, int pageToDelete)
         {
-            var outputPdfPath = $"{Path.GetFileNameWithoutExtension(inputPdfPath)}_removedPage{pageToDelete}.pdf";
+            var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_removedPage{pageToDelete}.pdf";
+
             using (PdfDocument inputPdfDocument = new PdfDocument(new PdfReader(inputPdfPath)))
             using (PdfDocument outputPdfDocument = new PdfDocument(new PdfWriter(outputPdfPath)))
             {
@@ -28,7 +29,8 @@ namespace PdfTool
                     {
                         PdfPage pdfPage = inputPdfDocument.GetPage(page);
                         PdfFormXObject pageCopy = pdfPage.CopyAsFormXObject(outputPdfDocument);
-                        PageSize pageSize = pdfPage.GetPageSize() as PageSize;
+                        Rectangle rectangle = pdfPage.GetPageSize();
+                        PageSize pageSize = new PageSize(rectangle);
                         outputPdfDocument.AddNewPage(pageSize);
                         new PdfCanvas(outputPdfDocument.GetLastPage()).AddXObject(pageCopy, 0, 0);
                     }
