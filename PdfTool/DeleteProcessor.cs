@@ -32,7 +32,7 @@ namespace PdfTool
                         Rectangle rectangle = pdfPage.GetPageSize();
                         PageSize pageSize = new PageSize(rectangle);
                         outputPdfDocument.AddNewPage(pageSize);
-                        new PdfCanvas(outputPdfDocument.GetLastPage()).AddXObject(pageCopy, 0, 0);
+                        new PdfCanvas(outputPdfDocument.GetLastPage()).AddXObjectAt(pageCopy, 0, 0);
                     }
                 }
             }
