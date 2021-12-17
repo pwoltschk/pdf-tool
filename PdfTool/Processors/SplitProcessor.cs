@@ -2,7 +2,7 @@
 using System.IO;
 using Path = System.IO.Path;
 
-namespace PdfTool
+namespace PdfTool.Processors
 {
     internal class SplitProcessor
     {

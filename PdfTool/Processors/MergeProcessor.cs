@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace PdfTool
+namespace PdfTool.Processors
 {
     internal class MergeProcessor
     {
