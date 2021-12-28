@@ -32,6 +32,11 @@ namespace PdfTool.Processors
                         PdfPage pageToSwap = inputDocument.GetPage(page1).CopyTo(outputDocument);
                         outputDocument.AddPage(pageToSwap);
                     }
+                    else
+                    {
+                        PdfPage currentPage = inputDocument.GetPage(page).CopyTo(outputDocument);
+                        outputDocument.AddPage(currentPage);
+                    }
                 }
             }
         }
