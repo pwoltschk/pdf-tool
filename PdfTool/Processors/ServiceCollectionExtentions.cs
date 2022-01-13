@@ -20,6 +20,7 @@ namespace PdfTool.Processors
             sc.AddTransient<SplitProcessor>();
             sc.AddTransient<CompressProcessor>();
             sc.AddTransient<CreationProcessor>();
+            sc.AddTransient<DeleteProcessor>();
         }
     }
 }
