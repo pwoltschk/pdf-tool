@@ -13,11 +13,11 @@ namespace PdfTool.Processors
         {
             _conversionHandlerFactory = conversionHandlerFactory;
         }
+
         public async Task ExecuteAsync(ProcessorArgs args)
         {
             await Task.Run(() => Create(args.ReferencePaths.Single()));
         }
-
 
         public void Create(string inputPath)
         {

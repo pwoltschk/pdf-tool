@@ -17,6 +17,7 @@ namespace PdfTool.CLI
             sc.AddCommand<HelpCommand>();
             sc.AddCommand<VersionCommand>();
             sc.AddCommand<SplitCommand>();
+            sc.AddCommand<CreateCommand>();
 
             sc.AddTransient<IArgumentsFactory, ArgumentsFactory>();
             sc.AddTransient<IOptionsParser, OptionsParser>();
@@ -32,6 +33,10 @@ namespace PdfTool.CLI
                 {
                     return serviceProvider.GetService<SplitProcessor>();
                 }
+                else if (t == typeof(CreateCommand))
+                {
+                    return serviceProvider.GetService<CreationProcessor>();
+                }
                 else
                 {
                     return null;
@@ -45,7 +50,5 @@ namespace PdfTool.CLI
             sc.AddTransient<TCommand>();
             sc.AddTransient<ICommandFactory<TCommand>, CommandFactory<TCommand>>();
         }
-
-
     }
 }

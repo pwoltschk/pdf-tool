@@ -19,6 +19,7 @@ namespace PdfTool.Processors
             sc.AddTransient<IPdfWriter, PdfWriterAdapter>();
             sc.AddTransient<SplitProcessor>();
             sc.AddTransient<CompressProcessor>();
+            sc.AddTransient<CreationProcessor>();
         }
     }
 }

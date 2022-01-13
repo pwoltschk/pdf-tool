@@ -11,17 +11,20 @@ namespace PdfTool
         private readonly ICommand _compressCommand;
         private readonly ICommand _versionCommand;
         private readonly ICommand _splitCommand;
+        private readonly ICommand _createCommand;
 
         public PdfToolService(
             ICommandFactory<CompressCommand> compressCommand,
             ICommandFactory<SplitCommand> splitCommand,
             ICommandFactory<HelpCommand> helpCommand,
-            ICommandFactory<VersionCommand> versionCommand)
+            ICommandFactory<VersionCommand> versionCommand,
+            ICommandFactory<CreateCommand> createCommand)
         {
             _compressCommand = compressCommand.Create();
             _helpCommand = helpCommand.Create();
             _versionCommand = versionCommand.Create();
             _splitCommand = splitCommand.Create();
+            _createCommand = createCommand.Create();
         }
 
         public async Task ExecuteCommand(string[] args)
@@ -48,7 +51,7 @@ namespace PdfTool
                     await _compressCommand.ExecuteAsync(args);
                     break;
                 case "create":
-                    // Create(args);
+                    await _createCommand.ExecuteAsync(args);
                     break;
                 case "remove":
                     // Remove(args);
