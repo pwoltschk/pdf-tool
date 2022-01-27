@@ -1,7 +1,7 @@
 ﻿using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
-using iText.Kernel.Pdf;
 using System;
 using System.Linq;
 
