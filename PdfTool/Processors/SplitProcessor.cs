@@ -6,7 +6,7 @@ namespace PdfTool.Processors
 {
     internal class SplitProcessor
     {
-        public void Split(string fullPath)
+        public static void Split(string fullPath)
         {
             var directory = Path.GetDirectoryName(fullPath);
 

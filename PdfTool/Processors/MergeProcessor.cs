@@ -6,7 +6,7 @@ namespace PdfTool.Processors
 {
     internal class MergeProcessor
     {
-        public void Merge(params string[] pdf)
+        public static void Merge(params string[] pdf)
         {
             var outputPdfPath = Path.GetFullPath(pdf.First());
 
