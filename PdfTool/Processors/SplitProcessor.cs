@@ -16,18 +16,13 @@ namespace PdfTool.Processors
 
             Directory.CreateDirectory(outputDirectory);
 
-            using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(fullPath)))
+            using PdfDocument pdfDocument = new PdfDocument(new PdfReader(fullPath));
+            for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
             {
-                for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
-                {
-                    string outputPdfPath = Path.Combine(outputDirectory, $"{filename}_{page}.pdf");
+                string outputPdfPath = Path.Combine(outputDirectory, $"{filename}_{page}.pdf");
 
-                    using (PdfDocument outputDocument = new PdfDocument(new PdfWriter(outputPdfPath)))
-                    {
-                        pdfDocument.CopyPagesTo(page, page, outputDocument);
-                    }
-                }
-
+                using PdfDocument outputDocument = new PdfDocument(new PdfWriter(outputPdfPath));
+                pdfDocument.CopyPagesTo(page, page, outputDocument);
             }
         }
     }

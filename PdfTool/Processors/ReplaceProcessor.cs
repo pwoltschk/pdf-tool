@@ -10,33 +10,31 @@ namespace PdfTool.Processors
         {
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_replacedPage{page1}with{page2}.pdf";
 
-            using (PdfDocument inputDocument = new PdfDocument(new PdfReader(inputPdfPath)))
-            using (PdfDocument outputDocument = new PdfDocument(new PdfWriter(outputPdfPath)))
+            using PdfDocument inputDocument = new PdfDocument(new PdfReader(inputPdfPath));
+            using PdfDocument outputDocument = new PdfDocument(new PdfWriter(outputPdfPath));
+            int pageCount = inputDocument.GetNumberOfPages();
+
+            if (page1 < 1 || page2 < 1 || page1 > pageCount || page2 > pageCount)
             {
-                int pageCount = inputDocument.GetNumberOfPages();
+                throw new ArgumentException("Invalid page numbers. Both page1 and page2 should be valid page numbers.");
+            }
 
-                if (page1 < 1 || page2 < 1 || page1 > pageCount || page2 > pageCount)
+            for (int page = 1; page <= pageCount; page++)
+            {
+                if (page == page1)
                 {
-                    throw new ArgumentException("Invalid page numbers. Both page1 and page2 should be valid page numbers.");
+                    PdfPage pageToSwap = inputDocument.GetPage(page2).CopyTo(outputDocument);
+                    outputDocument.AddPage(pageToSwap);
                 }
-
-                for (int page = 1; page <= pageCount; page++)
+                else if (page == page2)
                 {
-                    if (page == page1)
-                    {
-                        PdfPage pageToSwap = inputDocument.GetPage(page2).CopyTo(outputDocument);
-                        outputDocument.AddPage(pageToSwap);
-                    }
-                    else if (page == page2)
-                    {
-                        PdfPage pageToSwap = inputDocument.GetPage(page1).CopyTo(outputDocument);
-                        outputDocument.AddPage(pageToSwap);
-                    }
-                    else
-                    {
-                        PdfPage currentPage = inputDocument.GetPage(page).CopyTo(outputDocument);
-                        outputDocument.AddPage(currentPage);
-                    }
+                    PdfPage pageToSwap = inputDocument.GetPage(page1).CopyTo(outputDocument);
+                    outputDocument.AddPage(pageToSwap);
+                }
+                else
+                {
+                    PdfPage currentPage = inputDocument.GetPage(page).CopyTo(outputDocument);
+                    outputDocument.AddPage(currentPage);
                 }
             }
         }

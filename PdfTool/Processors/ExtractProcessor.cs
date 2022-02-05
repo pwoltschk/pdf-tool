@@ -30,10 +30,8 @@ namespace PdfTool.Processors
 
         private static int GetPageCount(string pdfFilePath)
         {
-            using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfFilePath)))
-            {
-                return pdfDocument.GetNumberOfPages();
-            }
+            using PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfFilePath));
+            return pdfDocument.GetNumberOfPages();
         }
     }
 }
