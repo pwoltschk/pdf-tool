@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PdfTool.Processors.Creation.Converter;
 
-namespace PdfTool.Processors.Creation.Converter
+namespace PdfTool.Processors.Creation
 {
     internal interface IConversionHandlerFactory
     {

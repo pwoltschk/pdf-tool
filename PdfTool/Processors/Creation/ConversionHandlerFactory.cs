@@ -9,7 +9,7 @@ namespace PdfTool.Processors.Creation
     {
         public IConversionHandler Create(string inputPath)
         {
-            string fileType = Path.GetExtension(inputPath);
+            string fileType = Path.GetExtension(inputPath).TrimStart('.');
 
             if (CreationFileType.Word.Value.Contains(fileType))
                 return new WordConversionHandler();

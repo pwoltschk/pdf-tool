@@ -16,7 +16,6 @@ namespace PdfTool.Processors
 
         public void Extract(string inputPdfPath, int fromPage, int toPage)
         {
-
             int pageCount = GetPageCount(inputPdfPath);
             var totalPages = Enumerable.Range(1, pageCount);
             var pagesToExtract = Enumerable.Range(fromPage, toPage - fromPage + 1);

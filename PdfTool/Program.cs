@@ -1,4 +1,7 @@
-﻿namespace PdfTool
+﻿using PdfTool.Processors;
+using PdfTool.Processors.Creation;
+
+namespace PdfTool
 {
     internal class Program
     {
