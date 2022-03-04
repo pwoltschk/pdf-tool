@@ -5,13 +5,13 @@ using System.Reflection;
 
 namespace PdfTool.Processors.Creation.Converter.Libre
 {
-    public static class LibreProcessExecutor
+    public class LibreProcessExecutor
     {
-        public static void ConvertToPdf(string docxFile, string pdfFile)
+        public void ConvertToPdf(string officeFile)
         {
             var libreOfficePath =  GetApplicationPath();
 
-            var procStartInfo = new ProcessStartInfo(libreOfficePath, $"--convert-to pdf --nologo --headless --outdir {Path.GetDirectoryName(pdfFile)} {docxFile}")
+            var procStartInfo = new ProcessStartInfo(libreOfficePath, $"--convert-to pdf --nologo --headless --outdir {Path.GetDirectoryName(officeFile)} {officeFile}")
             {
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
@@ -27,9 +27,6 @@ namespace PdfTool.Processors.Creation.Converter.Libre
             {
                 throw new Exception($"Application exited with Error Code: {process.ExitCode}");
             }
-
-            string sourcePdfFile = Path.Combine(Path.GetDirectoryName(pdfFile), $"{Path.GetFileNameWithoutExtension(docxFile)}.pdf");
-            File.Move(sourcePdfFile, pdfFile);
         }
 
         private static string GetApplicationPath()
@@ -42,7 +39,7 @@ namespace PdfTool.Processors.Creation.Converter.Libre
                     break;
                 case PlatformID.Win32NT:
                     string binaryDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    path = Path.Combine(binaryDirectory, "Windows", "program", "soffice.exe");
+                    path = Path.Combine(binaryDirectory, "Libre", "program", "soffice.exe");
                     break;
                 default:
                     throw new PlatformNotSupportedException("Your Operating System is not supported");
