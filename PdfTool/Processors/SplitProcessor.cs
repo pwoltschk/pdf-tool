@@ -1,29 +1,35 @@
-﻿using iText.Kernel.Pdf;
-using System.IO;
-using Path = System.IO.Path;
+﻿using PdfTool.Processors.Adapter;
 
-namespace PdfTool.Processors
+internal class SplitProcessor
 {
-    internal class SplitProcessor
+    private readonly IPath _path;
+    private readonly IDirectory _directory;
+    private readonly IPdfReader _pdfReader;
+    private readonly IPdfWriter _pdfWriter;
+
+    public SplitProcessor(IPath path, IDirectory directory, IPdfReader pdfReader, IPdfWriter pdfWriter)
     {
-        public static void Split(string fullPath)
+        _path = path;
+        _directory = directory;
+        _pdfReader = pdfReader;
+        _pdfWriter = pdfWriter;
+    }
+
+    public void Split(string fullPath)
+    {
+        var directory = _path.GetDirectoryName(fullPath);
+        var filename = _path.GetFileNameWithoutExtension(fullPath);
+        var outputDirectory = _path.Combine(directory, filename);
+
+        _directory.CreateDirectory(outputDirectory);
+
+        using var pdfDocument = _pdfReader.GetPdfDocument(fullPath);
+        for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
         {
-            var directory = Path.GetDirectoryName(fullPath);
+            string outputPdfPath = _path.Combine(outputDirectory, $"{filename}_{page}.pdf");
 
-            var filename = Path.GetFileNameWithoutExtension(fullPath);
-
-            var outputDirectory = Path.Combine(directory, filename);
-
-            Directory.CreateDirectory(outputDirectory);
-
-            using PdfDocument pdfDocument = new PdfDocument(new PdfReader(fullPath));
-            for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
-            {
-                string outputPdfPath = Path.Combine(outputDirectory, $"{filename}_{page}.pdf");
-
-                using PdfDocument outputDocument = new PdfDocument(new PdfWriter(outputPdfPath));
-                pdfDocument.CopyPagesTo(page, page, outputDocument);
-            }
+            using var outputDocument = _pdfWriter.GetPdfDocument(outputPdfPath);
+            pdfDocument.CopyPagesTo(page, page, outputDocument);
         }
     }
 }
