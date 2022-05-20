@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PdfTool.Processors.Adapter
 {
-    internal interface IPath
+    public interface IPath
     {
         string GetDirectoryName(string path);
         string GetFileNameWithoutExtension(string path);

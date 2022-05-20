@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace PdfTool.Processors.Adapter
 {
-    internal interface IPdfReader : IDisposable
+    public interface IPdfReader : IDisposable
     {
-        PdfDocument GetPdfDocument(string path);
+        IPdfDocument GetPdfDocument(string path);
     }
 }

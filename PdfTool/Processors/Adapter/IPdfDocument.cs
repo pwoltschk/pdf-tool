@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace PdfTool.Processors.Adapter
 {
-    public interface IDirectory
+    public interface IPdfDocument
     {
-        void CreateDirectory(string path);
     }
-
 }

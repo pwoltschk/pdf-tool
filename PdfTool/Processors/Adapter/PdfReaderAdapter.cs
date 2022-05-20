@@ -12,7 +12,7 @@ namespace PdfTool.Processors.Adapter
     {
         private PdfReader _pdfReader;
 
-        public PdfDocument GetPdfDocument(string path)
+        public IPdfDocument GetPdfDocument(string path)
         {
             _pdfReader = new PdfReader(path);
             return new PdfDocument(_pdfReader);

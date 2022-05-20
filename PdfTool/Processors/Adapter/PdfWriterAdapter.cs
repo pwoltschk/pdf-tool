@@ -11,7 +11,7 @@ namespace PdfTool.Processors.Adapter
     {
         private PdfWriter _pdfWriter;
 
-        public PdfDocument GetPdfDocument(string path)
+        public IPdfDocument GetPdfDocument(string path)
         {
             _pdfWriter = new PdfWriter(path);
             return new PdfDocument(_pdfWriter);
