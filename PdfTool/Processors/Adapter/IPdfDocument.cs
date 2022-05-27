@@ -14,6 +14,8 @@ namespace PdfTool.Processors.Adapter
 
         int GetNumberOfPages();
 
+        IPdfPage GetPage(int pageNumber);
+
         void Close();
     }
 }
