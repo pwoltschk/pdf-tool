@@ -40,6 +40,13 @@ namespace PdfTool.Processors.Adapter
             return new PdfPage(internalPage);
         }
 
+        public IPdfPage AddPage(IPdfPage page)
+        {
+            var internalPage = Instance.AddPage(page.Instance);
+
+            return new PdfPage(internalPage);
+        }
+
         public void Close()
         {
             Instance.Close();

@@ -8,16 +8,16 @@ namespace PdfTool.Processors.Adapter
 {
     internal class PdfPage : IPdfPage
     {
-        private readonly iText.Kernel.Pdf.PdfPage _page;
+        public iText.Kernel.Pdf.PdfPage Instance { get; private set; }
 
         public PdfPage(iText.Kernel.Pdf.PdfPage page)
         {
-            _page = page;
+            Instance = page;
         }
 
         public IPdfPage CopyTo(IPdfDocument document)
         {
-            var internalPage = _page.CopyTo(document.Instance);
+            var internalPage = Instance.CopyTo(document.Instance);
 
             return new PdfPage(internalPage);
         }
