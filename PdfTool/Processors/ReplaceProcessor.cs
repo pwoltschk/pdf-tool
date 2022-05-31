@@ -1,17 +1,27 @@
 ﻿using iText.Kernel.Pdf;
+using PdfTool.Processors.Adapter;
 using System;
+using System.Reflection.PortableExecutable;
 using Path = System.IO.Path;
 
 namespace PdfTool.Processors
 {
-    internal class ReplaceProcessor
+    public class ReplaceProcessor
     {
-        public static void Replace(string inputPdfPath, int page1, int page2)
+        private readonly IPdfReader _reader;
+        private readonly IPdfWriter _writer;
+
+        public ReplaceProcessor(IPdfReader reader, IPdfWriter writer)
+        {
+            _reader = reader;
+            _writer = writer;
+        }
+        public void Replace(string inputPdfPath, int page1, int page2)
         {
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_replacedPage{page1}with{page2}.pdf";
 
-            using PdfDocument inputDocument = new PdfDocument(new PdfReader(inputPdfPath));
-            using PdfDocument outputDocument = new PdfDocument(new PdfWriter(outputPdfPath));
+            using IPdfDocument inputDocument = _reader.GetPdfDocument(inputPdfPath);
+            using IPdfDocument outputDocument = _writer.GetPdfDocument(outputPdfPath);
             int pageCount = inputDocument.GetNumberOfPages();
 
             if (page1 < 1 || page2 < 1 || page1 > pageCount || page2 > pageCount)
@@ -23,17 +33,17 @@ namespace PdfTool.Processors
             {
                 if (page == page1)
                 {
-                    PdfPage pageToSwap = inputDocument.GetPage(page2).CopyTo(outputDocument);
+                    IPdfPage pageToSwap = inputDocument.GetPage(page2).CopyTo(outputDocument);
                     outputDocument.AddPage(pageToSwap);
                 }
                 else if (page == page2)
                 {
-                    PdfPage pageToSwap = inputDocument.GetPage(page1).CopyTo(outputDocument);
+                    IPdfPage pageToSwap = inputDocument.GetPage(page1).CopyTo(outputDocument);
                     outputDocument.AddPage(pageToSwap);
                 }
                 else
                 {
-                    PdfPage currentPage = inputDocument.GetPage(page).CopyTo(outputDocument);
+                    IPdfPage currentPage = inputDocument.GetPage(page).CopyTo(outputDocument);
                     outputDocument.AddPage(currentPage);
                 }
             }
