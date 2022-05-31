@@ -1,5 +1,4 @@
-﻿using iText.Kernel.Pdf;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PdfTool.Processors.Adapter;
 namespace PdfTool.UnitTests

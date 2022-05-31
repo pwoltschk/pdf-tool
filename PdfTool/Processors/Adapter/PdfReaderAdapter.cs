@@ -1,5 +1,4 @@
 ﻿using iText.Kernel.Pdf;
-using PdfDocument = PdfTool.Processors.Adapter.PdfDocument;
 
 namespace PdfTool.Processors.Adapter
 {

@@ -1,7 +1,5 @@
-﻿using iText.Kernel.Pdf;
-using PdfTool.Processors.Adapter;
+﻿using PdfTool.Processors.Adapter;
 using System;
-using System.Reflection.PortableExecutable;
 using Path = System.IO.Path;
 
 namespace PdfTool.Processors

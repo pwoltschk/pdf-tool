@@ -1,5 +1,4 @@
-﻿using iText.Kernel.Pdf;
-using System;
+﻿using System;
 
 namespace PdfTool.Processors.Adapter
 {
@@ -30,13 +29,13 @@ namespace PdfTool.Processors.Adapter
 
         public void CopyPagesTo(int pageFrom, int pageTo, IPdfDocument pdfDocument)
         {
-            Instance.CopyPagesTo(pageFrom,pageTo,pdfDocument.Instance);
+            Instance.CopyPagesTo(pageFrom, pageTo, pdfDocument.Instance);
         }
 
         public IPdfPage GetPage(int pageNumber)
         {
             var internalPage = Instance.GetPage(pageNumber);
-            
+
             return new PdfPage(internalPage);
         }
 
