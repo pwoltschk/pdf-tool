@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PdfTool.Processors.Adapter;
+
 namespace PdfTool.UnitTests
 {
     [TestClass]
@@ -24,7 +25,7 @@ namespace PdfTool.UnitTests
         }
 
         [TestMethod]
-        public void Split_CreatesDirectoryAndSplitsPdf()
+        public void GivenSplitProcessor_WhenSplit_ThenCreatesDirectoryAndSplitsPdf()
         {
             // Arrange
             var fullPath = "fullPath.pdf";
