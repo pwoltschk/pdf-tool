@@ -1,23 +1,32 @@
-﻿using iText.Kernel.Pdf;
+﻿using PdfTool.Processors.Adapter;
 using System.IO;
 using System.Linq;
 
-namespace PdfTool.Processors
-{
+    namespace PdfTool.Processors
+    {
     internal class MergeProcessor
     {
-        public static void Merge(params string[] pdf)
+        private readonly IPdfReader _pdfReader;
+        private readonly IPdfWriter _pdfWriter;
+
+        public MergeProcessor(IPdfReader pdfReader, IPdfWriter pdfWriter)
+        {
+            _pdfReader = pdfReader;
+            _pdfWriter = pdfWriter;
+        }
+
+        public void Merge(params string[] pdf)
         {
             var outputPdfPath = Path.GetFullPath(pdf.First());
 
-            using PdfDocument mergedPdfDocument = new PdfDocument(new PdfWriter($"{outputPdfPath}_merged.pdf"));
+            using IPdfDocument mergedPdfDocument = _pdfWriter.GetPdfDocument($"{outputPdfPath}_merged.pdf");
             foreach (string pdfFile in pdf)
             {
-                using PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfFile));
+                using IPdfDocument pdfDocument = _pdfReader.GetPdfDocument(pdfFile);
                 int pageCount = pdfDocument.GetNumberOfPages();
                 for (int page = 1; page <= pageCount; page++)
                 {
-                    PdfPage pdfPage = pdfDocument.GetPage(page);
+                    IPdfPage pdfPage = pdfDocument.GetPage(page);
                     mergedPdfDocument.AddPage(pdfPage.CopyTo(mergedPdfDocument));
                 }
             }
