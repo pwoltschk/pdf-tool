@@ -1,4 +1,5 @@
 ﻿using iText.Kernel.Pdf;
+using PdfTool.Processors.Adapter;
 using PdfTool.Services;
 using System.Linq;
 using Path = System.IO.Path;
@@ -8,10 +9,12 @@ namespace PdfTool.Processors
     internal class ExtractProcessor
     {
         private readonly IPageRemoveService _pageRemoveService;
+        private readonly IPdfReader _pdfReader;
 
-        public ExtractProcessor(IPageRemoveService pageRemoveService)
+        public ExtractProcessor(IPageRemoveService pageRemoveService, IPdfReader pdfReader)
         {
             _pageRemoveService = pageRemoveService;
+            _pdfReader = pdfReader;
         }
 
         public void Extract(string inputPdfPath, int fromPage, int toPage)
@@ -27,9 +30,9 @@ namespace PdfTool.Processors
             _pageRemoveService.RemovePages(inputPdfPath, outputPdfPath, pagesToDelete.ToArray());
         }
 
-        private static int GetPageCount(string pdfFilePath)
+        private int GetPageCount(string pdfFilePath)
         {
-            using PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfFilePath));
+            using IPdfDocument pdfDocument = _pdfReader.GetPdfDocument(pdfFilePath);
             return pdfDocument.GetNumberOfPages();
         }
     }
