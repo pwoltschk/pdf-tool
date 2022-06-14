@@ -4,6 +4,6 @@ namespace PdfTool.Processors.Adapter
 {
     public interface IPdfWriter : IDisposable
     {
-        IPdfDocument GetPdfDocument(string path);
+        IPdfDocument GetPdfDocument(string path, bool compressionModeOn = true);
     }
 }

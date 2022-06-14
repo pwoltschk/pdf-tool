@@ -6,9 +6,21 @@ namespace PdfTool.Processors.Adapter
     {
         private PdfWriter _pdfWriter;
 
-        public IPdfDocument GetPdfDocument(string path)
+        public IPdfDocument GetPdfDocument(string path, bool compressionModeOn = false)
         {
-            _pdfWriter = new PdfWriter(path);
+            if (compressionModeOn)
+            {
+                var writerProperties = new WriterProperties();
+                writerProperties.SetFullCompressionMode(true);
+                writerProperties.SetCompressionLevel(CompressionConstants.BEST_COMPRESSION);
+                PdfWriter pdfWriter = new PdfWriter(path, writerProperties);
+                pdfWriter.SetSmartMode(true);
+            }
+            else
+            {
+                _pdfWriter = new PdfWriter(path);
+            }
+
             return new PdfDocument(_pdfWriter);
         }
 
