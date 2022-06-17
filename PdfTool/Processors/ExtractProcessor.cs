@@ -1,5 +1,4 @@
-﻿using iText.Kernel.Pdf;
-using PdfTool.Processors.Adapter;
+﻿using PdfTool.Processors.Adapter;
 using PdfTool.Services;
 using System.Linq;
 using Path = System.IO.Path;

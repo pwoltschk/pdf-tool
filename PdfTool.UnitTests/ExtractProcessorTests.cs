@@ -1,14 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using PdfTool.Processors.Adapter;
 using PdfTool.Processors;
+using PdfTool.Processors.Adapter;
 using PdfTool.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+using System.Linq;
 
 namespace PdfTool.UnitTests
 {

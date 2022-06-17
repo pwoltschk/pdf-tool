@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 
-    namespace PdfTool.Processors
-    {
+namespace PdfTool.Processors
+{
     internal class MergeProcessor
     {
         private readonly IPdfReader _pdfReader;

@@ -2,7 +2,6 @@
 using Moq;
 using PdfTool.Processors;
 using PdfTool.Processors.Adapter;
-using System.IO;
 
 namespace PdfTool.Tests
 {
@@ -25,7 +24,7 @@ namespace PdfTool.Tests
         public void Merge_CallsExpectedMethods()
         {
             // Arrange
-            var pdfPath = new string[] { "page1.pdf", "page2.pdf"};
+            var pdfPath = new string[] { "page1.pdf", "page2.pdf" };
             var pdfDocumentMock = new Mock<IPdfDocument>();
             var pdfPageMock = new Mock<IPdfPage>();
 
