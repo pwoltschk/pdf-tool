@@ -13,8 +13,7 @@
         public static CreationFileType Word = new CreationFileType("doc", "docx");
         public static CreationFileType Excel = new CreationFileType("xls", "xlsx");
         public static CreationFileType PowerPoint = new CreationFileType("ppt", "pptx");
-        public static CreationFileType Jpeg = new CreationFileType("jpeg");
-        public static CreationFileType Png = new CreationFileType("png");
+        public static CreationFileType Image = new CreationFileType("jpeg", "jpg", "png");
         public static CreationFileType Tiff = new CreationFileType("tiff");
         public static CreationFileType Rtf = new CreationFileType("rtf");
     }

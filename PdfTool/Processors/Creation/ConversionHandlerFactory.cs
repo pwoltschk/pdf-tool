@@ -15,6 +15,8 @@ namespace PdfTool.Processors.Creation
                 return new WordConversionHandler();
             if (CreationFileType.Txt.Value.Contains(fileType))
                 return new TxtConversionHandler();
+            if (CreationFileType.Image.Value.Contains(fileType))
+                return new ImageConversionHandler();
             else
                 throw new NotSupportedException();
         }
