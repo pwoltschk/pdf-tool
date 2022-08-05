@@ -1,4 +1,5 @@
 ﻿using PdfTool.Processors.Adapter;
+using System.Threading.Tasks;
 
 internal class SplitProcessor
 {
@@ -15,7 +16,7 @@ internal class SplitProcessor
         _pdfWriter = pdfWriter;
     }
 
-    public void Split(string fullPath)
+    public async Task Split(string fullPath)
     {
         var directory = _path.GetDirectoryName(fullPath);
         var filename = _path.GetFileNameWithoutExtension(fullPath);
@@ -23,13 +24,16 @@ internal class SplitProcessor
 
         _directory.CreateDirectory(outputDirectory);
 
-        using var pdfDocument = _pdfReader.GetPdfDocument(fullPath);
-        for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
+        await Task.Run(() =>
         {
-            string outputPdfPath = _path.Combine(outputDirectory, $"{filename}_{page}.pdf");
+            using var pdfDocument = _pdfReader.GetPdfDocument(fullPath);
+            for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
+            {
+                string outputPdfPath = _path.Combine(outputDirectory, $"{filename}_{page}.pdf");
 
-            using var outputDocument = _pdfWriter.GetPdfDocument(outputPdfPath);
-            pdfDocument.CopyPagesTo(page, page, outputDocument);
-        }
+                using var outputDocument = _pdfWriter.GetPdfDocument(outputPdfPath);
+                pdfDocument.CopyPagesTo(page, page, outputDocument);
+            }
+        });
     }
 }

@@ -1,6 +1,7 @@
 ﻿using PdfTool.Processors.Adapter;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PdfTool.Processors
 {
@@ -15,21 +16,24 @@ namespace PdfTool.Processors
             _pdfWriter = pdfWriter;
         }
 
-        public void Merge(params string[] pdf)
+        public async Task Merge(params string[] pdf)
         {
             var outputPdfPath = Path.GetFullPath(pdf.First());
 
-            using IPdfDocument mergedPdfDocument = _pdfWriter.GetPdfDocument($"{outputPdfPath}_merged.pdf");
-            foreach (string pdfFile in pdf)
+            await Task.Run(() =>
             {
-                using IPdfDocument pdfDocument = _pdfReader.GetPdfDocument(pdfFile);
-                int pageCount = pdfDocument.GetNumberOfPages();
-                for (int page = 1; page <= pageCount; page++)
+                using IPdfDocument mergedPdfDocument = _pdfWriter.GetPdfDocument($"{outputPdfPath}_merged.pdf");
+                foreach (string pdfFile in pdf)
                 {
-                    IPdfPage pdfPage = pdfDocument.GetPage(page);
-                    mergedPdfDocument.AddPage(pdfPage.CopyTo(mergedPdfDocument));
+                    using IPdfDocument pdfDocument = _pdfReader.GetPdfDocument(pdfFile);
+                    int pageCount = pdfDocument.GetNumberOfPages();
+                    for (int page = 1; page <= pageCount; page++)
+                    {
+                        IPdfPage pdfPage = pdfDocument.GetPage(page);
+                        mergedPdfDocument.AddPage(pdfPage.CopyTo(mergedPdfDocument));
+                    }
                 }
-            }
+            });
         }
     }
 }

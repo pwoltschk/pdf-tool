@@ -1,5 +1,6 @@
 ﻿using PdfTool.Processors.Adapter;
 using System;
+using System.Threading.Tasks;
 using Path = System.IO.Path;
 
 namespace PdfTool.Processors
@@ -14,37 +15,40 @@ namespace PdfTool.Processors
             _reader = reader;
             _writer = writer;
         }
-        public void Replace(string inputPdfPath, int page1, int page2)
+        public async Task Replace(string inputPdfPath, int page1, int page2)
         {
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_replacedPage{page1}with{page2}.pdf";
 
-            using IPdfDocument inputDocument = _reader.GetPdfDocument(inputPdfPath);
-            using IPdfDocument outputDocument = _writer.GetPdfDocument(outputPdfPath);
-            int pageCount = inputDocument.GetNumberOfPages();
-
-            if (page1 < 1 || page2 < 1 || page1 > pageCount || page2 > pageCount)
+            await Task.Run(() =>
             {
-                throw new ArgumentException("Invalid page numbers. Both page1 and page2 should be valid page numbers.");
-            }
+                using IPdfDocument inputDocument = _reader.GetPdfDocument(inputPdfPath);
+                using IPdfDocument outputDocument = _writer.GetPdfDocument(outputPdfPath);
+                int pageCount = inputDocument.GetNumberOfPages();
 
-            for (int page = 1; page <= pageCount; page++)
-            {
-                if (page == page1)
+                if (page1 < 1 || page2 < 1 || page1 > pageCount || page2 > pageCount)
                 {
-                    IPdfPage pageToSwap = inputDocument.GetPage(page2).CopyTo(outputDocument);
-                    outputDocument.AddPage(pageToSwap);
+                    throw new ArgumentException("Invalid page numbers. Both page1 and page2 should be valid page numbers.");
                 }
-                else if (page == page2)
+
+                for (int page = 1; page <= pageCount; page++)
                 {
-                    IPdfPage pageToSwap = inputDocument.GetPage(page1).CopyTo(outputDocument);
-                    outputDocument.AddPage(pageToSwap);
+                    if (page == page1)
+                    {
+                        IPdfPage pageToSwap = inputDocument.GetPage(page2).CopyTo(outputDocument);
+                        outputDocument.AddPage(pageToSwap);
+                    }
+                    else if (page == page2)
+                    {
+                        IPdfPage pageToSwap = inputDocument.GetPage(page1).CopyTo(outputDocument);
+                        outputDocument.AddPage(pageToSwap);
+                    }
+                    else
+                    {
+                        IPdfPage currentPage = inputDocument.GetPage(page).CopyTo(outputDocument);
+                        outputDocument.AddPage(currentPage);
+                    }
                 }
-                else
-                {
-                    IPdfPage currentPage = inputDocument.GetPage(page).CopyTo(outputDocument);
-                    outputDocument.AddPage(currentPage);
-                }
-            }
+            });
         }
     }
 }

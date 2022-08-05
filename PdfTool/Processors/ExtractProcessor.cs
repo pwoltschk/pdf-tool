@@ -1,6 +1,7 @@
 ﻿using PdfTool.Processors.Adapter;
 using PdfTool.Services;
 using System.Linq;
+using System.Threading.Tasks;
 using Path = System.IO.Path;
 
 namespace PdfTool.Processors
@@ -16,7 +17,7 @@ namespace PdfTool.Processors
             _pdfReader = pdfReader;
         }
 
-        public void Extract(string inputPdfPath, int fromPage, int toPage)
+        public async Task Extract(string inputPdfPath, int fromPage, int toPage)
         {
             int pageCount = GetPageCount(inputPdfPath);
             var totalPages = Enumerable.Range(1, pageCount);
