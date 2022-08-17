@@ -2,6 +2,7 @@
 using Moq;
 using PdfTool.Processors;
 using PdfTool.Processors.Adapter;
+using System.Threading.Tasks;
 
 namespace PdfTool.Tests
 {
@@ -21,7 +22,7 @@ namespace PdfTool.Tests
         }
 
         [TestMethod]
-        public void Merge_CallsExpectedMethods()
+        public async Task Merge_CallsExpectedMethods()
         {
             // Arrange
             var pdfPath = new string[] { "page1.pdf", "page2.pdf" };
@@ -29,16 +30,16 @@ namespace PdfTool.Tests
             var pdfPageMock = new Mock<IPdfPage>();
 
             _pdfReaderMock.Setup(x => x.GetPdfDocument(It.IsAny<string>())).Returns(pdfDocumentMock.Object);
-            _pdfWriterMock.Setup(x => x.GetPdfDocument(It.IsAny<string>())).Returns(pdfDocumentMock.Object);
+            _pdfWriterMock.Setup(x => x.GetPdfDocument(It.IsAny<string>(), false)).Returns(pdfDocumentMock.Object);
             pdfDocumentMock.Setup(x => x.GetNumberOfPages()).Returns(1);
             pdfDocumentMock.Setup(x => x.GetPage(It.IsAny<int>())).Returns(pdfPageMock.Object);
 
             // Act
-            _mergeProcessor.Merge(pdfPath);
+            await _mergeProcessor.Merge(pdfPath);
 
             // Assert
             _pdfReaderMock.Verify(x => x.GetPdfDocument(It.IsAny<string>()), Times.Exactly(2));
-            _pdfWriterMock.Verify(x => x.GetPdfDocument(It.IsAny<string>()), Times.Exactly(1));
+            _pdfWriterMock.Verify(x => x.GetPdfDocument(It.IsAny<string>(), false), Times.Exactly(1));
             pdfDocumentMock.Verify(x => x.GetNumberOfPages(), Times.Exactly(2));
             pdfDocumentMock.Verify(x => x.GetPage(It.IsAny<int>()), Times.Exactly(2));
         }

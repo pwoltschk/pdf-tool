@@ -4,6 +4,7 @@ using PdfTool.Processors;
 using PdfTool.Processors.Adapter;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace PdfTool.UnitTests
 {
@@ -23,7 +24,7 @@ namespace PdfTool.UnitTests
         }
 
         [TestMethod]
-        public void GivenReplaceProcessor_WhenReplaceCalled_SwapsPages()
+        public async Task GivenReplaceProcessor_WhenReplaceCalled_SwapsPages()
         {
             // Arrange
             var inputPdfPath = "input.pdf";
@@ -34,7 +35,7 @@ namespace PdfTool.UnitTests
             var page2Mock = new Mock<IPdfPage>();
 
             _pdfReaderMock.Setup(r => r.GetPdfDocument(inputPdfPath)).Returns(inputDocumentMock.Object);
-            _pdfWriterMock.Setup(w => w.GetPdfDocument(outputPdfPath)).Returns(outputDocumentMock.Object);
+            _pdfWriterMock.Setup(w => w.GetPdfDocument(outputPdfPath, false)).Returns(outputDocumentMock.Object);
             inputDocumentMock.Setup(d => d.GetNumberOfPages()).Returns(2);
             inputDocumentMock.Setup(d => d.GetPage(1)).Returns(page1Mock.Object);
             inputDocumentMock.Setup(d => d.GetPage(2)).Returns(page2Mock.Object);
@@ -42,11 +43,11 @@ namespace PdfTool.UnitTests
             page2Mock.Setup(p => p.CopyTo(outputDocumentMock.Object)).Returns(page1Mock.Object);
 
             // Act
-            _replaceProcessor.Replace(inputPdfPath, 1, 2);
+            await _replaceProcessor.Replace(inputPdfPath, 1, 2);
 
             // Assert
             _pdfReaderMock.Verify(r => r.GetPdfDocument(inputPdfPath), Times.Once);
-            _pdfWriterMock.Verify(w => w.GetPdfDocument(outputPdfPath), Times.Once);
+            _pdfWriterMock.Verify(w => w.GetPdfDocument(outputPdfPath, false), Times.Once);
             inputDocumentMock.Verify(d => d.GetNumberOfPages(), Times.Once);
             inputDocumentMock.Verify(d => d.GetPage(1), Times.Once);
             inputDocumentMock.Verify(d => d.GetPage(2), Times.Once);
@@ -58,7 +59,7 @@ namespace PdfTool.UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void GivenReplaceProcessor_WhenCalledWithInvalidPageNumbers_ThenThrowsArgumentException()
+        public async Task GivenReplaceProcessor_WhenCalledWithInvalidPageNumbers_ThenThrowsArgumentException()
         {
             // Arrange
             var inputPdfPath = "input.pdf";
@@ -68,7 +69,7 @@ namespace PdfTool.UnitTests
             inputDocumentMock.Setup(d => d.GetNumberOfPages()).Returns(2);
 
             // Act
-            _replaceProcessor.Replace(inputPdfPath, 0, 3);
+            await _replaceProcessor.Replace(inputPdfPath, 0, 3);
         }
     }
 }

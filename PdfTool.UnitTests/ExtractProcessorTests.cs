@@ -6,6 +6,7 @@ using PdfTool.Services;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PdfTool.UnitTests
 {
@@ -28,7 +29,7 @@ namespace PdfTool.UnitTests
         }
 
         [TestMethod]
-        public void Extract_ShouldCallRemovePagesWithCorrectParameters()
+        public async Task Extract_ShouldCallRemovePagesWithCorrectParameters()
         {
             // Arrange
             string inputPdfPath = "input.pdf";
@@ -39,7 +40,7 @@ namespace PdfTool.UnitTests
             _pdfDocumentMock.Setup(m => m.GetNumberOfPages()).Returns(pageCount);
 
             // Act
-            _extractProcessor.Extract(inputPdfPath, fromPage, toPage);
+            await _extractProcessor.Extract(inputPdfPath, fromPage, toPage);
 
             // Assert
             _pageRemoveServiceMock.Verify(m => m.RemovePages(

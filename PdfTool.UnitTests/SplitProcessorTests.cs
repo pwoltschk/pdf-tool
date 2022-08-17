@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PdfTool.Processors.Adapter;
+using System.Threading.Tasks;
 
 namespace PdfTool.UnitTests
 {
@@ -25,7 +26,7 @@ namespace PdfTool.UnitTests
         }
 
         [TestMethod]
-        public void GivenSplitProcessor_WhenSplit_ThenCreatesDirectoryAndSplitsPdf()
+        public async Task GivenSplitProcessor_WhenSplit_ThenCreatesDirectoryAndSplitsPdf()
         {
             // Arrange
             var fullPath = "fullPath.pdf";
@@ -46,15 +47,15 @@ namespace PdfTool.UnitTests
             _mockPdfReader.Setup(r => r.GetPdfDocument(fullPath)).Returns(mockPdfDocument.Object);
 
             var mockOutputDocument = new Mock<IPdfDocument>();
-            _mockPdfWriter.Setup(w => w.GetPdfDocument(outputPdfPath)).Returns(mockOutputDocument.Object);
+            _mockPdfWriter.Setup(w => w.GetPdfDocument(outputPdfPath, false)).Returns(mockOutputDocument.Object);
 
             // Act
-            _splitProcessor.Split(fullPath);
+            await _splitProcessor.Split(fullPath);
 
             // Assert
             _mockDirectory.Verify(d => d.CreateDirectory(outputDirectory), Times.Once);
             _mockPdfReader.Verify(r => r.GetPdfDocument(fullPath), Times.Once);
-            _mockPdfWriter.Verify(w => w.GetPdfDocument(outputPdfPath), Times.Exactly(numberOfPages));
+            _mockPdfWriter.Verify(w => w.GetPdfDocument(outputPdfPath, false), Times.Exactly(numberOfPages));
             mockPdfDocument.Verify(d => d.CopyPagesTo(It.IsAny<int>(), It.IsAny<int>(), mockOutputDocument.Object), Times.Exactly(numberOfPages));
         }
     }
