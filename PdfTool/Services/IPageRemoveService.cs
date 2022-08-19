@@ -1,7 +1,9 @@
-﻿namespace PdfTool.Services
+﻿using System.Threading.Tasks;
+
+namespace PdfTool.Services
 {
     public interface IPageRemoveService
     {
-        void RemovePages(string inputPdfPath, string outputPdfPath, params int[] pages);
+        Task RemovePages(string inputPdfPath, string outputPdfPath, params int[] pages);
     }
 }
