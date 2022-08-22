@@ -7,7 +7,6 @@ namespace PdfTool
     {
         static void Main(string[] args)
         {
-            new MergeProcessor(new PdfReaderAdapter(), new PdfWriterAdapter()).Merge("C:\\Users\\wopa\\Documents\\starvpn\\starvpn_1.pdf", "C:\\Users\\wopa\\Documents\\starvpn\\starvpn_2.pdf");
         }
     }
 }
