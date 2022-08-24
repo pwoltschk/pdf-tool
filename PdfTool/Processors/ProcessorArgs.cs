@@ -4,10 +4,12 @@ using System.IO;
 
 namespace PdfTool.Processors
 {
-    public class ProcessorArgs
+    public class ProcessorArgs 
     {
-        public IEnumerable<string> referencePaths { get; }
+        public IEnumerable<string> ReferencePaths { get; }
 
-        public IEnumerable<string> referencePages { get; }
+        public int FromPage { get; }
+
+        public int ToPage { get; }
     }
 }

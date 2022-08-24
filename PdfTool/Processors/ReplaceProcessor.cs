@@ -1,11 +1,12 @@
 ﻿using PdfTool.Processors.Adapter;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Path = System.IO.Path;
 
 namespace PdfTool.Processors
 {
-    public class ReplaceProcessor
+    public class ReplaceProcessor : IProcessor
     {
         private readonly IPdfReader _reader;
         private readonly IPdfWriter _writer;
@@ -15,6 +16,13 @@ namespace PdfTool.Processors
             _reader = reader;
             _writer = writer;
         }
+
+        public async Task ExecuteAsync(ProcessorArgs args)
+        {
+            await Replace(args.ReferencePaths.Single(), args.FromPage, args.ToPage);    
+        }
+
+
         public async Task Replace(string inputPdfPath, int page1, int page2)
         {
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_replacedPage{page1}with{page2}.pdf";

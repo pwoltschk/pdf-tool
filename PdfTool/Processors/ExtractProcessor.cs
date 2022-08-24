@@ -6,7 +6,7 @@ using Path = System.IO.Path;
 
 namespace PdfTool.Processors
 {
-    internal class ExtractProcessor
+    internal class ExtractProcessor : IProcessor
     {
         private readonly IPageRemoveService _pageRemoveService;
         private readonly IPdfReader _pdfReader;
@@ -15,6 +15,11 @@ namespace PdfTool.Processors
         {
             _pageRemoveService = pageRemoveService;
             _pdfReader = pdfReader;
+        }
+
+        public async Task ExecuteAsync(ProcessorArgs args)
+        {
+            await Extract(args.ReferencePaths.Single(), args.FromPage, args.ToPage);
         }
 
         public async Task Extract(string inputPdfPath, int fromPage, int toPage)

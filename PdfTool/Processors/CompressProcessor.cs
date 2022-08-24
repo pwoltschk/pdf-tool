@@ -1,10 +1,11 @@
 ﻿using PdfTool.Processors.Adapter;
+using System.Linq;
 using System.Threading.Tasks;
 using Path = System.IO.Path;
 
 namespace PdfTool.Processors
 {
-    public class CompressProcessor 
+    public class CompressProcessor : IProcessor
     {
         private readonly IPdfReader _pdfReader;
         private readonly IPdfWriter _pdfWriter;
@@ -15,6 +16,10 @@ namespace PdfTool.Processors
             _pdfWriter = pdfWriter;
         }
 
+        public async Task ExecuteAsync(ProcessorArgs args)
+        {
+            await Compress(args.ReferencePaths.Single());
+        }
         public async Task Compress(string inputPdfPath)
         {
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_compressed.pdf";

@@ -1,7 +1,9 @@
-﻿using PdfTool.Processors.Adapter;
+﻿using PdfTool.Processors;
+using PdfTool.Processors.Adapter;
+using System.Linq;
 using System.Threading.Tasks;
 
-internal class SplitProcessor
+internal class SplitProcessor : IProcessor
 {
     private readonly IPath _path;
     private readonly IDirectory _directory;
@@ -14,6 +16,11 @@ internal class SplitProcessor
         _directory = directory;
         _pdfReader = pdfReader;
         _pdfWriter = pdfWriter;
+    }
+
+    public async Task ExecuteAsync(ProcessorArgs args)
+    {
+        await Split(args.ReferencePaths.Single());
     }
 
     public async Task Split(string fullPath)

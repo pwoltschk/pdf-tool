@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PdfTool.Processors
 {
-    internal class MergeProcessor
+    internal class MergeProcessor : IProcessor
     {
         private readonly IPdfReader _pdfReader;
         private readonly IPdfWriter _pdfWriter;
@@ -15,6 +15,12 @@ namespace PdfTool.Processors
             _pdfReader = pdfReader;
             _pdfWriter = pdfWriter;
         }
+
+        public async Task ExecuteAsync(ProcessorArgs args)
+        {
+            await Merge(args.ReferencePaths.ToArray());
+        }
+
 
         public async Task Merge(params string[] pdf)
         {

@@ -5,7 +5,7 @@ using Path = System.IO.Path;
 
 namespace PdfTool.Processors
 {
-    internal class DeleteProcessor
+    internal class DeleteProcessor : IProcessor
     {
         private readonly IPageRemoveService _pageRemoveService;
 
@@ -13,6 +13,12 @@ namespace PdfTool.Processors
         {
             _pageRemoveService = pageRemoveService;
         }
+
+        public async Task ExecuteAsync(ProcessorArgs args)
+        {
+            await Delete(args.ReferencePaths.Single(),args.FromPage);
+        }
+
 
         public async Task Delete(string inputPdfPath, int pageToDelete)
         {
