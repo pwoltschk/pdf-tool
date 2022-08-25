@@ -1,12 +1,22 @@
-﻿using PdfTool.Processors;
-using PdfTool.Processors.Adapter;
+﻿using PdfTool.CLI;
+using System.Threading.Tasks;
 
 namespace PdfTool
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+            switch (args[0])
+            {
+                case "help":
+                case "--help":
+                case "-h":
+                    await new HelpCommand().ExecuteAsync(null);
+                break;
+                default:
+                return;
+            }
         }
     }
 }

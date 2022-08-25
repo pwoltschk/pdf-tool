@@ -4,7 +4,7 @@ using PdfTool.Processors;
 using PdfTool.Processors.Adapter;
 using System.Threading.Tasks;
 
-namespace PdfTool.Tests
+namespace PdfTool.UnitTests
 {
     [TestClass]
     public class MergeProcessorTests
