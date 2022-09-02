@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 
 namespace PdfTool.Processors
 {
     public class ProcessorArgs 
     {
-        public IEnumerable<string> ReferencePaths { get; }
+        public ProcessorArgs()
+        {
+            ReferencePaths = new List<string>();    
+        }
+
+        public IList<string> ReferencePaths { get; }
 
         public int FromPage { get; }
 

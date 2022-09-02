@@ -9,7 +9,7 @@ namespace PdfTool.CLI
 {
     internal class VersionCommand : ICommand
     {
-        public async Task ExecuteAsync(ProcessorArgs args)
+        public async Task ExecuteAsync(string[] args)
         {
             await Task.Run(() =>
             {

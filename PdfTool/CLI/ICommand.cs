@@ -5,6 +5,6 @@ namespace PdfTool.CLI
 {
     internal interface ICommand
     { 
-        Task ExecuteAsync(ProcessorArgs args);
+        Task ExecuteAsync(string[] args)
     }
 }

@@ -10,7 +10,7 @@ namespace PdfTool.CLI
 {
     public class HelpCommand : ICommand
     {
-        public async Task ExecuteAsync(ProcessorArgs args)
+        public async Task ExecuteAsync(string[] args)
         {
             await Task.Run(() =>
             {
