@@ -1,4 +1,5 @@
 ﻿using PdfTool.CLI;
+using PdfTool.Processors;
 using System;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace PdfTool
     {
         static async Task Main(string[] args)
         {
+            // todo refactor for DI container usage
+            ICommand compressCommand = null;
             if (args.Length == 0)
             {
                 await new HelpCommand().ExecuteAsync(null);
@@ -24,10 +27,10 @@ namespace PdfTool
                 case "--version":
                 case "-v":
                 case "version":
-                    //ShowVersion();
+                    await new VersionCommand().ExecuteAsync(null);  
                     break;
                 case "compress":
-                   // Compress(args);
+                    await compressCommand.ExecuteAsync(args);
                     break;
                 case "create":
                    // Create(args);
