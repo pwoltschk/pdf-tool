@@ -1,4 +1,7 @@
-﻿using PdfTool.CLI;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using PdfTool.CLI;
 using PdfTool.Processors;
 using System;
 using System.Threading.Tasks;
@@ -9,39 +12,27 @@ namespace PdfTool
     {
         static async Task Main(string[] args)
         {
-            // todo refactor for DI container usage
-            ICommand compressCommand = null;
-            if (args.Length == 0)
+            IHostBuilder builder = Host.CreateDefaultBuilder(args);
+
+            builder.ConfigureServices(sp =>
             {
-                await new HelpCommand().ExecuteAsync(null);
-                return;
+                sp.AddSingleton<PdfToolService>();
+
+            });
+
+            using IHost host = builder.Build();
+
+            using (var serviceScope = host.Services.CreateScope())
+            {
+                var services = serviceScope.ServiceProvider;
+
+
+                var service = services.GetRequiredService<PdfToolService>();
+                await service.ExecuteCommand(args);
+
             }
 
-            switch (args[0])
-            {
-                case "--help":
-                case "-h":
-                case "help":
-                    await new HelpCommand().ExecuteAsync(null);
-                    break;
-                case "--version":
-                case "-v":
-                case "version":
-                    await new VersionCommand().ExecuteAsync(null);  
-                    break;
-                case "compress":
-                    await compressCommand.ExecuteAsync(args);
-                    break;
-                case "create":
-                   // Create(args);
-                    break;
-                case "remove":
-                   // Remove(args);
-                    break;
-                default:
-                    Console.WriteLine($"Unknown command: {args[0]}");
-                    break;
-            }
+            await host.RunAsync();
         }
     }
 }
