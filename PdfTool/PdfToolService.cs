@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PdfTool.CLI;
 
-namespace PdfTool.CLI
+namespace PdfTool
 {
     internal class PdfToolService
     {
         public async Task ExecuteCommand(string[] args)
         {
-            // todo refactor for DI container usage
-            ICommand compressCommand = null;
+            
+            ICommand compressCommand = new HelpCommand();
             if (args.Length == 0)
             {
                 await new HelpCommand().ExecuteAsync(null);
