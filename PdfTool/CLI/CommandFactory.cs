@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace PdfTool.CLI
 {
-    internal class CommandFactory<TCommand>
-        where TCommand : ICommand
+    internal class CommandFactory<TCommand> : ICommandFactory<TCommand>
+        where TCommand : class, ICommand
     {
         ICommand _command;
         public CommandFactory(TCommand command) {

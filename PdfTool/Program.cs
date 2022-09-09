@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using PdfTool.Processors;
+using PdfTool.CLI;
 using System;
 using System.Threading.Tasks;
 
@@ -15,8 +15,8 @@ namespace PdfTool
 
             builder.ConfigureServices(sp =>
             {
+                sp.AddCommands();
                 sp.AddSingleton<PdfToolService>();
-
             });
 
             using IHost host = builder.Build();
