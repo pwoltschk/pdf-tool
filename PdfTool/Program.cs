@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using PdfTool.CLI;
-using System;
 using System.Threading.Tasks;
 
 namespace PdfTool
