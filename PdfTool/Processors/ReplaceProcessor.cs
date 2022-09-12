@@ -19,7 +19,7 @@ namespace PdfTool.Processors
 
         public async Task ExecuteAsync(ProcessorArgs args)
         {
-            await Replace(args.ReferencePaths.Single(), args.FromPage, args.ToPage);    
+            await Replace(args.ReferencePaths.Single(), args.FromPage, args.ToPage);
         }
 
 

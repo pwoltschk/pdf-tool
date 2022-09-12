@@ -1,8 +1,4 @@
 ﻿using PdfTool.Processors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PdfTool.CLI
@@ -13,7 +9,7 @@ namespace PdfTool.CLI
 
         public CompressCommand(IProcessor processor)
         {
-            _processor = processor;   
+            _processor = processor;
         }
 
         public async Task ExecuteAsync(string[] args)
@@ -22,7 +18,7 @@ namespace PdfTool.CLI
             var processorArgs = new ProcessorArgs();
             processorArgs.ReferencePaths.Add(args[1]);
 
-            await _processor.ExecuteAsync(processorArgs); 
+            await _processor.ExecuteAsync(processorArgs);
         }
     }
 }

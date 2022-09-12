@@ -15,7 +15,7 @@ namespace PdfTool.Processors
         }
         public async Task ExecuteAsync(ProcessorArgs args)
         {
-            await Task.Run(() =>  Create(args.ReferencePaths.Single()));
+            await Task.Run(() => Create(args.ReferencePaths.Single()));
         }
 
 

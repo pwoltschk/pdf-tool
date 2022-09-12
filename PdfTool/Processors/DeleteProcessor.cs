@@ -16,7 +16,7 @@ namespace PdfTool.Processors
 
         public async Task ExecuteAsync(ProcessorArgs args)
         {
-            await Delete(args.ReferencePaths.Single(),args.FromPage);
+            await Delete(args.ReferencePaths.Single(), args.FromPage);
         }
 
 
