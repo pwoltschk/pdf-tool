@@ -1,4 +1,6 @@
-﻿namespace PdfTool.CLI
+﻿using PdfTool.CLI.Commands;
+
+namespace PdfTool.CLI
 {
     internal class CommandFactory<TCommand> : ICommandFactory<TCommand>
         where TCommand : class, ICommand

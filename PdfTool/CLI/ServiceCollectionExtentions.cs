@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PdfTool.CLI.Commands;
 
 namespace PdfTool.CLI
 {

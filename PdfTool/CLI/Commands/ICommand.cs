@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace PdfTool.CLI
+namespace PdfTool.CLI.Commands
 {
     internal interface ICommand
     {

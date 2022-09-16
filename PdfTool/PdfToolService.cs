@@ -1,4 +1,5 @@
 ﻿using PdfTool.CLI;
+using PdfTool.CLI.Commands;
 using System;
 using System.Threading.Tasks;
 
