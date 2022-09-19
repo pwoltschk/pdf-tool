@@ -10,8 +10,8 @@ namespace PdfTool.CLI
             sc.AddCommand<CompressCommand>();
             sc.AddCommand<HelpCommand>();
             sc.AddCommand<VersionCommand>();
+            sc.AddCommand<SplitCommand>();
         }
-
 
         private static void AddCommand<TCommand>(this IServiceCollection sc)
             where TCommand : class, ICommand

@@ -1,14 +1,14 @@
 ﻿using PdfTool.Processors;
-using System;
 using System.Threading.Tasks;
+using System;
 
 namespace PdfTool.CLI.Commands
 {
-    internal class CompressCommand : ICommand
+    internal class SplitCommand : ICommand
     {
         private IProcessor _processor;
 
-        public CompressCommand(IProcessor processor)
+        public SplitCommand(IProcessor processor)
         {
             _processor = processor;
         }
@@ -19,7 +19,7 @@ namespace PdfTool.CLI.Commands
             var processorArgs = new ProcessorArgs();
             processorArgs.ReferencePaths.Add(args[2]);
 
-            switch(args[1])
+            switch (args[1])
             {
                 case "--input":
                 case "-i":
@@ -27,9 +27,9 @@ namespace PdfTool.CLI.Commands
                     break;
                 case "--help":
                 case "-h":
-                    //Todo help test for compression
-                    Console.WriteLine("help text for compression");
-                break;
+                    //Todo help test for split
+                    Console.WriteLine("help text for split");
+                    break;
                 default:
                     throw new NotSupportedException($"The option {args[1]}, is currently not suppoerted.");
 
