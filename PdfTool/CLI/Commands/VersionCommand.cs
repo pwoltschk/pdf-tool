@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace PdfTool.CLI
+namespace PdfTool.CLI.Commands
 {
     internal class VersionCommand : ICommand
     {

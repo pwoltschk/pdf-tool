@@ -16,8 +16,7 @@ namespace PdfTool.CLI.Commands
         public async Task ExecuteAsync(string[] args)
         {
             // todo introduce some factory /mapper class for the processor args
-            var processorArgs = new ProcessorArgs();
-            processorArgs.ReferencePaths.Add(args[2]);
+            var processorArgs = ArgumentsFactory.Create(args);
 
             switch (args[1])
             {
