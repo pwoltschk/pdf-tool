@@ -11,8 +11,8 @@ namespace PdfTool.Processors
 
         public IList<string> ReferencePaths { get; }
 
-        public int FromPage { get; }
+        public int FromPage { get; set; }
 
-        public int ToPage { get; }
+        public int ToPage { get; set; }
     }
 }
