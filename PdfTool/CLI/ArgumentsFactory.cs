@@ -10,7 +10,7 @@ namespace PdfTool.CLI
         public static ProcessorArgs Create(string[] args)
         {
             var processorArgs = new ProcessorArgs();
-            var input = GetOptionValues(args, "input");
+            var input = GetOptionValues(args, "input", "i");
             var pages = GetOptionValue(args, "page");
 
             input.ForEach(p => processorArgs.ReferencePaths.Add(p));
@@ -20,11 +20,23 @@ namespace PdfTool.CLI
             return processorArgs;
         }
 
-        static List<string> GetOptionValues(string[] options, string option)
+        static List<string> GetOptionValues(string[] options, string longOption, string shortOption)
         {
-            return options.Where(o => o.StartsWith("--" + option + " "))
-                          .Select(o => o.Split(' ')[1].Trim('"'))
-                          .ToList();
+            var optionValues = new List<string>();
+
+            foreach (var option in options)
+            {
+                if (option.StartsWith("--" + longOption + " ") || option.StartsWith("-" + shortOption + " "))
+                {
+                    optionValues.Add(option.Split(' ')[1].Trim('"'));
+                }
+                else if (!option.Contains(":") && !option.Contains("-"))
+                {
+                    optionValues.Add(option.Trim('"'));
+                }
+            }
+
+            return optionValues;
         }
 
         static string GetOptionValue(string[] options, string option)
