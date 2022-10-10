@@ -11,11 +11,14 @@ namespace PdfTool.CLI
         {
             var processorArgs = new ProcessorArgs();
             var input = GetOptionValues(args, "input", "i");
-            var pages = GetOptionValue(args, "page");
+            var pages = GetOptionValues(args, "page", "p");
+            var fromPage = GetOptionValue(args, "from");
+            var toPage = GetOptionValue(args, "to");
+
 
             input.ForEach(p => processorArgs.ReferencePaths.Add(p));
-            processorArgs.FromPage = Int32.Parse(pages);
-
+            processorArgs.FromPage = Int32.Parse(pages[0]);
+            processorArgs.ToPage = Int32.Parse(pages[1]);
 
             return processorArgs;
         }
