@@ -16,9 +16,20 @@ namespace PdfTool.CLI
             var toPage = GetOptionValue(args, "to", "t");
 
 
-            input.ForEach(p => processorArgs.ReferencePaths.Add(p));
-            processorArgs.FromPage = Int32.Parse(pages[0]);
-            processorArgs.ToPage = Int32.Parse(pages[1]);
+            if (input.Count == 0 && fromPage == null && toPage == null && pages.Count == 0)
+            {
+                input.Add(args[1]);
+                processorArgs.FromPage = Int32.Parse(pages[2]);
+                processorArgs.ToPage = Int32.Parse(pages[3]);
+            }
+            else
+            {
+                input.ForEach(p => processorArgs.ReferencePaths.Add(p));
+                processorArgs.FromPage = Int32.Parse(pages[0]);
+                processorArgs.ToPage = Int32.Parse(pages[1]);
+            }
+
+
 
             return processorArgs;
         }
