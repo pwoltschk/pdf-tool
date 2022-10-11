@@ -12,8 +12,8 @@ namespace PdfTool.CLI
             var processorArgs = new ProcessorArgs();
             var input = GetOptionValues(args, "input", "i");
             var pages = GetOptionValues(args, "page", "p");
-            var fromPage = GetOptionValue(args, "from");
-            var toPage = GetOptionValue(args, "to");
+            var fromPage = GetOptionValue(args, "from", "f");
+            var toPage = GetOptionValue(args, "to", "t");
 
 
             input.ForEach(p => processorArgs.ReferencePaths.Add(p));
@@ -42,9 +42,10 @@ namespace PdfTool.CLI
             return optionValues;
         }
 
-        static string GetOptionValue(string[] options, string option)
+        static string GetOptionValue(string[] options, string longOption, string shortOption)
         {
-            return options.FirstOrDefault(o => o.StartsWith("--" + option + ":"))?.Split(':')[1];
+            return options.FirstOrDefault(o => o.StartsWith("--" + longOption + ":") || 
+            o.StartsWith("-" + shortOption + ":"))?.Split(':')[1];
         }
     }
 }
