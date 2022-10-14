@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace PdfTool.CLI
 {
-    internal class ArgumentsFactory
+    internal class ArgumentsFactory : IArgumentsFactory
     {
-        public static ProcessorArgs Create(string[] args)
+        public ProcessorArgs Create(string[] args)
         {
             var processorArgs = new ProcessorArgs();
             var input = GetOptionValues(args, "input", "i");
@@ -21,15 +21,34 @@ namespace PdfTool.CLI
                 input.Add(args[1]);
                 processorArgs.FromPage = Int32.Parse(pages[2]);
                 processorArgs.ToPage = Int32.Parse(pages[3]);
+                return processorArgs;
             }
-            else
+
+            input.ForEach(p => processorArgs.ReferencePaths.Add(p));
+
+
+            if (fromPage != null && pages.Count > 0)
             {
-                input.ForEach(p => processorArgs.ReferencePaths.Add(p));
-                processorArgs.FromPage = Int32.Parse(pages[0]);
-                processorArgs.ToPage = Int32.Parse(pages[1]);
+                throw new NotSupportedException("You cannot specify 'from/f' and 'page/p' parameter at the same time");
             }
 
+            if (fromPage != null)
+            {
+                processorArgs.FromPage = int.Parse(fromPage);
+            }
+            else if (pages.Count > 0)
+            {
+                processorArgs.FromPage = int.Parse(pages[0]);
+            }
 
+            if (toPage != null)
+            {
+                processorArgs.ToPage = int.Parse(toPage);
+            }
+            else if (pages.Count > 1)
+            {
+                processorArgs.ToPage = int.Parse(pages[1]);
+            }
 
             return processorArgs;
         }
