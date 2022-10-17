@@ -56,14 +56,14 @@ namespace PdfTool.UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
-        public void TestCreate_WithFromAndPageOptions_ShouldThrowException()
+        public void GivenCreate_WithFromAndPageOptions_ShouldThrowException()
         {
             var args = new string[] { "extract", "--input", "\"C:/MyPath\"", "--from:2", "--page", "3", "4" };
             _factory.Create(args);
         }
 
         [TestMethod]
-        public void WhenCreate_WithoutOptions_ThenParseCorrect()
+        public void GivenCreate_WithoutOptions_ThenParseCorrect()
         {
             var args = new string[] { "extract", "\"C:/MyPath\"", "2", "4" };
             var result = _factory.Create(args);
@@ -73,6 +73,38 @@ namespace PdfTool.UnitTests
             Assert.AreEqual(2, result.FromPage);
             Assert.AreEqual(4, result.ToPage);
         }
+
+        [TestMethod]
+        public void GivenCreate_WithShortOptions_ThenParseCorrect()
+        {
+            var args = new string[] { "merge", "-i", "\"C:/MyPath1\"", "\"C:/MyPath2\"" };
+            var result = _factory.Create(args);
+
+            Assert.AreEqual(2, result.ReferencePaths.Count);
+            Assert.AreEqual("C:/MyPath1", result.ReferencePaths[0]);
+            Assert.AreEqual("C:/MyPath2", result.ReferencePaths[1]);
+        }
+
+        [TestMethod]
+        public void GivenCreate_WithMixedOptions_ThenParseCorrect()
+        {
+            var args = new string[] { "replace", "--input", "\"C:/MyPath\"", "-p", "2", "4" };
+            var result = _factory.Create(args);
+
+            Assert.AreEqual(1, result.ReferencePaths.Count);
+            Assert.AreEqual("C:/MyPath", result.ReferencePaths[0]);
+            Assert.AreEqual(2, result.FromPage);
+            Assert.AreEqual(4, result.ToPage);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void GivenCreate_WithInvalidPageNumber_ShouldThrowException()
+        {
+            var args = new string[] { "extract", "--input", "\"C:/MyPath\"", "--from:abc", "--to:4" };
+            _factory.Create(args);
+        }
+
     }
 
 
