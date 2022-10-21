@@ -22,7 +22,7 @@ namespace PdfTool.UnitTests
         [TestMethod]
         public void GivenCreate_WithMultipleInputOptions_ThenParseCorrect()
         {
-            var args = new string[] { "merge", "--input", "\"C:/MyPath1\"", "\"C:/MyPath2\"" };
+            var args = new string[] { "merge", "--input", "C:/MyPath1", "C:/MyPath2" };
             var result = _factory.Create(args);
 
             Assert.AreEqual(2, result.ReferencePaths.Count);

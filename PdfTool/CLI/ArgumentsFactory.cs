@@ -10,22 +10,26 @@ namespace PdfTool.CLI
         public ProcessorArgs Create(string[] args)
         {
             var processorArgs = new ProcessorArgs();
-            var input = GetOptionValues(args, "input", "i");
-            var pages = GetOptionValues(args, "page", "p");
-            var fromPage = GetOptionValue(args, "from", "f");
-            var toPage = GetOptionValue(args, "to", "t");
-
+            var input = GetOptionValues(args, "--input", "-i");
+            var pages = GetOptionValues(args, "--page", "-p");
+            var fromPage = GetOptionValue(args, "--from", "-f");
+            var toPage = GetOptionValue(args, "--to", "-t");
 
             if (input.Count == 0 && fromPage == null && toPage == null && pages.Count == 0)
             {
                 input.Add(args[1]);
-                processorArgs.FromPage = Int32.Parse(pages[2]);
-                processorArgs.ToPage = Int32.Parse(pages[3]);
+                if (args.Length > 2)
+                {
+                    processorArgs.FromPage = Int32.Parse(args[2]);
+                }
+                if (args.Length > 3)
+                {
+                    processorArgs.ToPage = Int32.Parse(args[3]);
+                }
                 return processorArgs;
             }
 
             input.ForEach(p => processorArgs.ReferencePaths.Add(p));
-
 
             if (fromPage != null && pages.Count > 0)
             {
@@ -52,30 +56,40 @@ namespace PdfTool.CLI
 
             return processorArgs;
         }
-
         static List<string> GetOptionValues(string[] options, string longOption, string shortOption)
         {
             var optionValues = new List<string>();
+            bool isOptionActive = false;
 
-            foreach (var option in options)
+            for (int i = 0; i < options.Length; i++)
             {
-                if (option.StartsWith("--" + longOption + " ") || option.StartsWith("-" + shortOption + " "))
+                if (options[i] == longOption || options[i] == shortOption)
                 {
-                    optionValues.Add(option.Split(' ')[1].Trim('"'));
+                    for (int j = i + 1; j < options.Length; j++)
+                    {
+                        if (options[j].StartsWith("--") || options[j].StartsWith("-"))
+                        {
+                            break;
+                        }
+                        optionValues.Add(options[j].Trim('"'));
+                    }
+                    isOptionActive = true;
                 }
-                else if (!option.Contains(":") && !option.Contains("-"))
+                else if (options[i].StartsWith("--") || options[i].StartsWith("-"))
                 {
-                    optionValues.Add(option.Trim('"'));
+                    isOptionActive = false;
                 }
             }
 
             return optionValues;
         }
 
+
         static string GetOptionValue(string[] options, string longOption, string shortOption)
         {
-            return options.FirstOrDefault(o => o.StartsWith("--" + longOption + ":") || 
-            o.StartsWith("-" + shortOption + ":"))?.Split(':')[1];
+            return options.FirstOrDefault(o => o.StartsWith(longOption + ":") ||
+            o.StartsWith(shortOption + ":"))?.Split(':')[1];
         }
     }
+
 }
