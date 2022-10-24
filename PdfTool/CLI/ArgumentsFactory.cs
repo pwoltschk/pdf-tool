@@ -17,7 +17,7 @@ namespace PdfTool.CLI
 
             if (input.Count == 0 && fromPage == null && toPage == null && pages.Count == 0)
             {
-                input.Add(args[1]);
+                processorArgs.ReferencePaths.Add(args[1]);
                 if (args.Length > 2)
                 {
                     processorArgs.FromPage = Int32.Parse(args[2]);
