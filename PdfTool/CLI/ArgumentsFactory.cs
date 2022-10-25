@@ -59,8 +59,6 @@ namespace PdfTool.CLI
         static List<string> GetOptionValues(string[] options, string longOption, string shortOption)
         {
             var optionValues = new List<string>();
-            bool isOptionActive = false;
-
             for (int i = 0; i < options.Length; i++)
             {
                 if (options[i] == longOption || options[i] == shortOption)
@@ -73,11 +71,6 @@ namespace PdfTool.CLI
                         }
                         optionValues.Add(options[j].Trim('"'));
                     }
-                    isOptionActive = true;
-                }
-                else if (options[i].StartsWith("--") || options[i].StartsWith("-"))
-                {
-                    isOptionActive = false;
                 }
             }
 
