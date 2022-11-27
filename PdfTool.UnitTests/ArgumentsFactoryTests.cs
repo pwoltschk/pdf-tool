@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PdfTool.CLI;
+using PdfTool.CLI.Parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace PdfTool.UnitTests
         [TestInitialize]
         public void TestInitialize()
         {
-            _factory = new ArgumentsFactory();
+            _factory = new ArgumentsFactory(new OptionsParser());
         }
 
         [TestMethod]

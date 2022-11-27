@@ -1,6 +1,6 @@
 ﻿using PdfTool.Processors;
 
-namespace PdfTool.CLI
+namespace PdfTool.CLI.Parser
 {
     public interface IArgumentsFactory
     {
