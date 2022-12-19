@@ -8,32 +8,31 @@ namespace PdfTool.CLI.Commands
     internal class SplitCommand : ICommand
     {
         private IProcessor _processor;
+        private IArgumentsFactory _argumentsFactory;
 
-        public SplitCommand(IProcessor processor)
+        public SplitCommand(
+            IProcessor processor,
+            IArgumentsFactory argumentsFactory)
         {
             _processor = processor;
+            _argumentsFactory = argumentsFactory;
         }
 
         public async Task ExecuteAsync(string[] args)
         {
-            // todo introduce some factory /mapper class for the processor args
-            var processorArgs = new ArgumentsFactory().Create(args);
+            var processorArgs = _argumentsFactory.Create(args);
 
-            switch (args[1])
+            if (args[1] is "--help" or "-h")
             {
-                case "--input":
-                case "-i":
-                    await _processor.ExecuteAsync(processorArgs);
-                    break;
-                case "--help":
-                case "-h":
-                    //Todo help test for split
-                    Console.WriteLine("help text for split");
-                    break;
-                default:
-                    throw new NotSupportedException($"The option {args[1]}, is currently not suppoerted.");
+                Console.WriteLine("help text for split");
 
             }
+            else
+            {
+                await _processor.ExecuteAsync(processorArgs);
+
+            }
+
         }
     }
 }

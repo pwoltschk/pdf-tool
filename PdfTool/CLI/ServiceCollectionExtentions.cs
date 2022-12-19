@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PdfTool.CLI.Commands;
+using PdfTool.CLI.Parser;
 
 namespace PdfTool.CLI
 {
@@ -11,6 +12,10 @@ namespace PdfTool.CLI
             sc.AddCommand<HelpCommand>();
             sc.AddCommand<VersionCommand>();
             sc.AddCommand<SplitCommand>();
+
+            sc.AddTransient<IArgumentsFactory, ArgumentsFactory>();
+            sc.AddTransient<IOptionsParser, OptionsParser>();
+
         }
 
         private static void AddCommand<TCommand>(this IServiceCollection sc)

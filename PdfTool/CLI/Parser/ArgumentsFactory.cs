@@ -14,10 +14,6 @@ namespace PdfTool.CLI.Parser
             _optionsParser = optionsParser;
         }
 
-        public ArgumentsFactory()
-        {
-            
-        }
         public ProcessorArgs Create(string[] args)
         {
             var processorArgs = new ProcessorArgs();
