@@ -1,11 +1,17 @@
-﻿using System;
+﻿using PdfTool.CLI.Parser;
+using PdfTool.Processors;
+using System;
 using System.Threading.Tasks;
 
 namespace PdfTool.CLI.Commands
 {
-    public class HelpCommand : ICommand
+    internal class HelpCommand : CommandBase
     {
-        public async Task ExecuteAsync(string[] args)
+        public HelpCommand(IProcessor processor, IArgumentsFactory argumentsFactor) : base(processor, argumentsFactor)
+        {
+        }
+
+        public override async Task ExecuteAsync(string[] args)
         {
             await Task.Run(() =>
             {
@@ -17,6 +23,10 @@ namespace PdfTool.CLI.Commands
                 "split --input \"C:/MyPath\" ");
             });
 
+        }
+
+        public override void Validate(ProcessorArgs args)
+        {
         }
     }
 }

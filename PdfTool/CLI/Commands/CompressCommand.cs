@@ -5,33 +5,14 @@ using System.Threading.Tasks;
 
 namespace PdfTool.CLI.Commands
 {
-    internal class CompressCommand : ICommand
+    internal class CompressCommand : CommandBase
     {
-        private readonly IProcessor _processor;
-        private readonly IArgumentsFactory _argumentsFactory;
-
-        public CompressCommand(
-            IProcessor processor,
-            IArgumentsFactory argumentsFactor)
+        public CompressCommand(IProcessor processor, IArgumentsFactory argumentsFactor) : base(processor, argumentsFactor)
         {
-            _processor = processor;
-            _argumentsFactory = argumentsFactor;
         }
 
-        public async Task ExecuteAsync(string[] args)
+        public override void Validate(ProcessorArgs args)
         {
-            var processorArgs = _argumentsFactory.Create(args);
-
-            if (args[1] is "--help" or "-h")
-            {
-                Console.WriteLine("help text for split");
-
-            }
-            else
-            {
-                await _processor.ExecuteAsync(processorArgs);
-
-            }
         }
     }
 }
