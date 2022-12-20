@@ -7,6 +7,12 @@ namespace PdfTool.CLI.Commands
 {
     internal class VersionCommand : CommandBase
     {
+        public VersionCommand(
+            IProcessor processor,
+            IArgumentsFactory argumentsFactor)
+                : base(processor, argumentsFactor)
+        {
+        }
 
         public override async Task ExecuteAsync(string[] args)
         {

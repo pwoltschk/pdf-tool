@@ -1,7 +1,5 @@
 ﻿using PdfTool.Processors;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace PdfTool.CLI.Parser
 {

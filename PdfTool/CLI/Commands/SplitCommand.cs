@@ -1,7 +1,6 @@
-﻿using PdfTool.Processors;
-using System.Threading.Tasks;
+﻿using PdfTool.CLI.Parser;
+using PdfTool.Processors;
 using System;
-using PdfTool.CLI.Parser;
 
 namespace PdfTool.CLI.Commands
 {
