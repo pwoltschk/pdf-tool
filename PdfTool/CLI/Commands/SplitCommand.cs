@@ -1,6 +1,5 @@
 ﻿using PdfTool.CLI.Parser;
 using PdfTool.Processors;
-using System;
 
 namespace PdfTool.CLI.Commands
 {
@@ -14,11 +13,11 @@ namespace PdfTool.CLI.Commands
         {
             if (args.ReferencePaths.Count != 1)
             {
-                throw new Exception("You have to specify exactly one Pdf Document");
+                throw new ValidationException("You have to specify exactly one Pdf Document");
             }
             if(args.FromPage > 0 || args.ToPage > 0)
             {
-                throw new Exception("Split does not accept any page parameter");
+                throw new ValidationException("Split does not accept any page parameter");
             }
         }
     }

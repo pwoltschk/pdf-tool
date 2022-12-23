@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PdfTool.CLI;
+using System;
 using System.Threading.Tasks;
 
 namespace PdfTool
@@ -23,10 +24,15 @@ namespace PdfTool
             {
                 var services = serviceScope.ServiceProvider;
 
-
-                var service = services.GetRequiredService<PdfToolService>();
-                await service.ExecuteCommand(args);
-
+                try
+                {
+                    var service = services.GetRequiredService<PdfToolService>();
+                    await service.ExecuteCommand(args);
+                }
+                catch(ValidationException exception)
+                { 
+                    Console.WriteLine(exception.Message);
+                }
             }
 
             await host.RunAsync();
