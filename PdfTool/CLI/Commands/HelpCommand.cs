@@ -7,7 +7,7 @@ namespace PdfTool.CLI.Commands
 {
     internal class HelpCommand : CommandBase
     {
-        public HelpCommand(IProcessor processor, IArgumentsFactory argumentsFactor) : base(processor, argumentsFactor)
+        public HelpCommand(Func<Type, IProcessor> processorFactory, IArgumentsFactory argumentsFactor) : base(processorFactory, argumentsFactor)
         {
         }
 

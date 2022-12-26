@@ -7,10 +7,7 @@ namespace PdfTool.CLI.Commands
 {
     internal class VersionCommand : CommandBase
     {
-        public VersionCommand(
-            IProcessor processor,
-            IArgumentsFactory argumentsFactor)
-                : base(processor, argumentsFactor)
+        public VersionCommand(Func<Type, IProcessor> processorFactory, IArgumentsFactory argumentsFactor) : base(processorFactory, argumentsFactor)
         {
         }
 

@@ -6,7 +6,7 @@ namespace PdfTool.CLI.Commands
 {
     internal class CompressCommand : CommandBase
     {
-        public CompressCommand(IProcessor processor, IArgumentsFactory argumentsFactor) : base(processor, argumentsFactor)
+        public CompressCommand(Func<Type, IProcessor> processorFactory, IArgumentsFactory argumentsFactor) : base(processorFactory, argumentsFactor)
         {
         }
 

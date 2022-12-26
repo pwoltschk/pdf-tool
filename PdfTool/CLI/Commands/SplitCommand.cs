@@ -1,11 +1,12 @@
 ﻿using PdfTool.CLI.Parser;
 using PdfTool.Processors;
+using System;
 
 namespace PdfTool.CLI.Commands
 {
     internal class SplitCommand : CommandBase
     {
-        public SplitCommand(IProcessor processor, IArgumentsFactory argumentsFactor) : base(processor, argumentsFactor)
+        public SplitCommand(Func<Type, IProcessor> processorFactory, IArgumentsFactory argumentsFactor) : base(processorFactory, argumentsFactor)
         {
         }
 

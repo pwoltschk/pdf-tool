@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PdfTool.CLI.Commands;
 using PdfTool.CLI.Parser;
+using PdfTool.Processors;
+using System;
 
 namespace PdfTool.CLI
 {
@@ -16,6 +18,22 @@ namespace PdfTool.CLI
             sc.AddTransient<IArgumentsFactory, ArgumentsFactory>();
             sc.AddTransient<IOptionsParser, OptionsParser>();
 
+            sc.AddTransient<Func<Type, IProcessor?>>(serviceProvider => t =>
+            {
+
+                if (t == typeof(CompressCommand))
+                {
+                    return serviceProvider.GetService<CompressProcessor>();
+                }
+                else if (t == typeof(SplitCommand))
+                {
+                    return serviceProvider.GetService<SplitProcessor>();
+                }
+                else
+                {
+                    return null;
+                }      
+            });
         }
 
         private static void AddCommand<TCommand>(this IServiceCollection sc)
