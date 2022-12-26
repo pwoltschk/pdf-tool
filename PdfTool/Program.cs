@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PdfTool.CLI;
+using PdfTool.Processors;
 using System;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace PdfTool
 
             builder.ConfigureServices(sp =>
             {
+                sp.AddProcessors();
                 sp.AddCommands();
                 sp.AddSingleton<PdfToolService>();
             });
@@ -34,8 +36,6 @@ namespace PdfTool
                     Console.WriteLine(exception.Message);
                 }
             }
-
-            await host.RunAsync();
         }
     }
 }

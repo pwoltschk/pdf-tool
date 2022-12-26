@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
+		<AssemblyName>pdftool</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,6 +21,10 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>PdfTool.UnitTests</_Parameter1>
     </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CLI\Validator\" />
   </ItemGroup>
 
 
