@@ -13,8 +13,8 @@ namespace PdfTool.Processors.Adapter
                 var writerProperties = new WriterProperties();
                 writerProperties.SetFullCompressionMode(true);
                 writerProperties.SetCompressionLevel(CompressionConstants.BEST_COMPRESSION);
-                PdfWriter pdfWriter = new PdfWriter(path, writerProperties);
-                pdfWriter.SetSmartMode(true);
+                _pdfWriter = new PdfWriter(path, writerProperties);
+                _pdfWriter.SetSmartMode(true);
             }
             else
             {
