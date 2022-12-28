@@ -23,9 +23,5 @@
     </AssemblyAttribute>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CLI\Validator\" />
-  </ItemGroup>
-
 
 </Project>
