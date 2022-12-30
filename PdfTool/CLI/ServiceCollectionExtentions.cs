@@ -21,7 +21,7 @@ namespace PdfTool.CLI
             sc.AddTransient<IArgumentsFactory, ArgumentsFactory>();
             sc.AddTransient<IOptionsParser, OptionsParser>();
 
-            sc.AddTransient<Func<Type, IProcessor?>>(serviceProvider => t =>
+            sc.AddTransient<Func<Type, IProcessor>>(serviceProvider => t =>
             {
 
                 if (t == typeof(CompressCommand))
