@@ -1,11 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PdfTool.CLI.Commands;
 using PdfTool.Processors.Adapter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PdfTool.Processors
 {
@@ -21,6 +15,7 @@ namespace PdfTool.Processors
             sc.AddTransient<CompressProcessor>();
             sc.AddTransient<CreationProcessor>();
             sc.AddTransient<DeleteProcessor>();
+            sc.AddTransient<ExtractProcessor>();
         }
     }
 }

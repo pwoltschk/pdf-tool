@@ -13,6 +13,7 @@ namespace PdfTool
         private readonly ICommand _splitCommand;
         private readonly ICommand _createCommand;
         private readonly ICommand _removeCommand;
+        private readonly ICommand _extractCommand;
 
         public PdfToolService(
             ICommandFactory<CompressCommand> compressCommand,
@@ -20,7 +21,8 @@ namespace PdfTool
             ICommandFactory<HelpCommand> helpCommand,
             ICommandFactory<VersionCommand> versionCommand,
             ICommandFactory<CreateCommand> createCommand,
-            ICommandFactory<RemoveCommand> removeCommand)
+            ICommandFactory<RemoveCommand> removeCommand,
+            ICommandFactory<ExtractCommand> extractCommand)
         {
             _compressCommand = compressCommand.Create();
             _helpCommand = helpCommand.Create();
@@ -28,6 +30,7 @@ namespace PdfTool
             _splitCommand = splitCommand.Create();
             _createCommand = createCommand.Create();
             _removeCommand = removeCommand.Create();
+            _extractCommand = extractCommand.Create();
         }
 
         public async Task ExecuteCommand(string[] args)
@@ -61,6 +64,9 @@ namespace PdfTool
                     break;
                 case "split":
                     await _splitCommand.ExecuteAsync(args);
+                    break;
+                case "extract":
+                    await _extractCommand.ExecuteAsync(args);
                     break;
                 default:
                     Console.WriteLine($"Unknown command: {args[0]}");
