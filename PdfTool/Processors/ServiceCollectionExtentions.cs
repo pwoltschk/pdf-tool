@@ -17,6 +17,7 @@ namespace PdfTool.Processors
             sc.AddTransient<DeleteProcessor>();
             sc.AddTransient<ExtractProcessor>();
             sc.AddTransient<ReplaceProcessor>();
+            sc.AddTransient<MergeProcessor>();
         }
     }
 }

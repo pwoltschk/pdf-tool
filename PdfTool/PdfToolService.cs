@@ -14,6 +14,7 @@ namespace PdfTool
         private readonly ICommand _createCommand;
         private readonly ICommand _removeCommand;
         private readonly ICommand _extractCommand;
+        private readonly ICommand _mergeCommand;
         private readonly ICommand _replaceCommand;
 
         public PdfToolService(
@@ -24,7 +25,8 @@ namespace PdfTool
             ICommandFactory<CreateCommand> createCommand,
             ICommandFactory<RemoveCommand> removeCommand,
             ICommandFactory<ExtractCommand> extractCommand,
-            ICommandFactory<ReplaceCommand> replaceCommand)
+            ICommandFactory<ReplaceCommand> replaceCommand,
+            ICommandFactory<MergeCommand> mergeCommand)
         {
             _compressCommand = compressCommand.Create();
             _helpCommand = helpCommand.Create();
@@ -34,6 +36,7 @@ namespace PdfTool
             _removeCommand = removeCommand.Create();
             _extractCommand = extractCommand.Create();
             _replaceCommand = replaceCommand.Create();
+            _mergeCommand = mergeCommand.Create();
         }
 
         public async Task ExecuteCommand(string[] args)
@@ -73,6 +76,9 @@ namespace PdfTool
                     break;
                 case "replace":
                     await _replaceCommand.ExecuteAsync(args);
+                    break;
+                case "merge":
+                    await _mergeCommand.ExecuteAsync(args);
                     break;
                 default:
                     Console.WriteLine($"Unknown command: {args[0]}");
