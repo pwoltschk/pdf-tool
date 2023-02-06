@@ -22,19 +22,17 @@ namespace PdfTool
 
             using IHost host = builder.Build();
 
-            using (var serviceScope = host.Services.CreateScope())
-            {
-                var services = serviceScope.ServiceProvider;
+            using var serviceScope = host.Services.CreateScope();
+            var services = serviceScope.ServiceProvider;
 
-                try
-                {
-                    var service = services.GetRequiredService<PdfToolService>();
-                    await service.ExecuteCommand(args);
-                }
-                catch(ValidationException exception)
-                { 
-                    Console.WriteLine(exception.Message);
-                }
+            try
+            {
+                var service = services.GetRequiredService<PdfToolService>();
+                await service.ExecuteCommand(args);
+            }
+            catch (ValidationException exception)
+            {
+                Console.WriteLine(exception.Message);
             }
         }
     }

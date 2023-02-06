@@ -10,10 +10,10 @@ namespace PdfTool.CLI.Commands
         private readonly IExactlyOneDocumentValidator _exactlyOneValidator;
         private readonly INoPageParametersAllowedValidator _noPageParametersAllowedValidator;
         public CompressCommand(
-            Func<Type, IProcessor> processorFactory, 
-            IArgumentsFactory argumentsFactor, 
-            IExactlyOneDocumentValidator exactlyOneValidator, 
-            INoPageParametersAllowedValidator noPageParametersAllowedValidator) 
+            Func<Type, IProcessor> processorFactory,
+            IArgumentsFactory argumentsFactor,
+            IExactlyOneDocumentValidator exactlyOneValidator,
+            INoPageParametersAllowedValidator noPageParametersAllowedValidator)
             : base(processorFactory, argumentsFactor)
         {
             _exactlyOneValidator = exactlyOneValidator;

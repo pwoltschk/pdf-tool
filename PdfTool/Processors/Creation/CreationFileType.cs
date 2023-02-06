@@ -9,8 +9,8 @@
             Value = value;
         }
 
-        public static CreationFileType Txt = new CreationFileType("txt");
-        public static CreationFileType Word = new CreationFileType("doc", "docx");
-        public static CreationFileType Image = new CreationFileType("jpeg", "jpg", "png");
+        public static CreationFileType Txt = new("txt");
+        public static CreationFileType Word = new("doc", "docx");
+        public static CreationFileType Image = new("jpeg", "jpg", "png");
     }
 }

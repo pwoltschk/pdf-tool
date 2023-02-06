@@ -60,7 +60,7 @@ namespace PdfTool.CLI
                 else
                 {
                     return null;
-                }      
+                }
             });
         }
 

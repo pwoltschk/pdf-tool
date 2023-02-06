@@ -14,8 +14,8 @@ namespace PdfTool.Services
         {
             await Task.Run(() =>
             {
-                using PdfDocument inputPdfDocument = new PdfDocument(new PdfReader(inputPdfPath));
-                using PdfDocument outputPdfDocument = new PdfDocument(new PdfWriter(outputPdfPath));
+                using PdfDocument inputPdfDocument = new(new PdfReader(inputPdfPath));
+                using PdfDocument outputPdfDocument = new(new PdfWriter(outputPdfPath));
                 int pageCount = inputPdfDocument.GetNumberOfPages();
 
                 for (int page = 1; page <= pageCount; page++)
@@ -25,7 +25,7 @@ namespace PdfTool.Services
                         PdfPage pdfPage = inputPdfDocument.GetPage(page);
                         PdfFormXObject pageCopy = pdfPage.CopyAsFormXObject(outputPdfDocument);
                         Rectangle rectangle = pdfPage.GetPageSize();
-                        PageSize pageSize = new PageSize(rectangle);
+                        PageSize pageSize = new(rectangle);
                         outputPdfDocument.AddNewPage(pageSize);
                         new PdfCanvas(outputPdfDocument.GetLastPage()).AddXObjectAt(pageCopy, 0, 0);
                     }

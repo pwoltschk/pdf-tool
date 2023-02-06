@@ -14,7 +14,7 @@ namespace PdfTool.Processors.Creation.Converter
             Document document = new Document(pdf);
 
             ImageData imageData = ImageDataFactory.Create(inputString);
-            Image image = new Image(imageData);
+            Image image = new(imageData);
 
             document.Add(image);
             document.Close();

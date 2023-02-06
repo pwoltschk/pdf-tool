@@ -10,10 +10,10 @@ namespace PdfTool.Processors.Creation.Converter
         public void Convert(string inputString)
         {
             string txtContent = File.ReadAllText(inputString);
-            PdfWriter writer = new PdfWriter(inputString);
-            PdfDocument pdf = new PdfDocument(writer);
+            PdfWriter writer = new(inputString);
+            PdfDocument pdf = new(writer);
 
-            Document document = new Document(pdf);
+            Document document = new(pdf);
 
             document.Add(new Paragraph(txtContent));
 
