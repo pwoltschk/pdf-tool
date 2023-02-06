@@ -20,6 +20,7 @@ namespace PdfTool.CLI
             sc.AddCommand<CreateCommand>();
             sc.AddCommand<RemoveCommand>();
             sc.AddCommand<ExtractCommand>();
+            sc.AddCommand<ReplaceCommand>();
 
             sc.AddTransient<IArgumentsFactory, ArgumentsFactory>();
             sc.AddTransient<IOptionsParser, OptionsParser>();
@@ -46,6 +47,10 @@ namespace PdfTool.CLI
                 else if (t == typeof(ExtractCommand))
                 {
                     return serviceProvider.GetService<ExtractProcessor>();
+                }
+                else if (t == typeof(ReplaceCommand))
+                {
+                    return serviceProvider.GetService<ReplaceProcessor>();
                 }
                 else
                 {
