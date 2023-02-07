@@ -2,13 +2,16 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace PdfTool.Processors.Creation.Converter
 {
     internal class WordConversionHandler : IConversionHandler
     {
-        public void Convert(string inputString)
+        public Task ConvertAsync(string inputString)
         {
+            var tcs = new TaskCompletionSource<int>();
+
             var libreOfficePath = GetApplicationPath();
 
             var procStartInfo = new ProcessStartInfo(libreOfficePath, $"--convert-to pdf --nologo --headless --outdir {Path.GetDirectoryName(inputString)} {inputString}")
@@ -19,16 +22,27 @@ namespace PdfTool.Processors.Creation.Converter
                 WorkingDirectory = Environment.CurrentDirectory
             };
 
-            using var process = new Process { StartInfo = procStartInfo };
-            process.Start();
-            process.WaitForExit();
+            var process = new Process { StartInfo = procStartInfo };
+            process.EnableRaisingEvents = true;
 
-            if (process.ExitCode != 0)
+            process.Exited += (sender, args) =>
             {
-                throw new Exception($"Application exited with Error Code: {process.ExitCode}");
-            }
-        }
+                if (process.ExitCode != 0)
+                {
+                    tcs.SetException(new Exception($"Application exited with Error Code: {process.ExitCode}"));
+                }
+                else
+                {
+                    tcs.SetResult(process.ExitCode);
+                }
 
+                process.Dispose();
+            };
+
+            process.Start();
+
+            return tcs.Task;
+        }
         private static string GetApplicationPath()
         {
             string path;

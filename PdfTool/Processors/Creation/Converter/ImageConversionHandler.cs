@@ -2,22 +2,26 @@
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using System.Threading.Tasks;
 
 namespace PdfTool.Processors.Creation.Converter
 {
     internal class ImageConversionHandler : IConversionHandler
     {
-        public void Convert(string inputString)
+        public async Task ConvertAsync(string inputString)
         {
-            PdfWriter writer = new PdfWriter(inputString);
-            PdfDocument pdf = new PdfDocument(writer);
-            Document document = new Document(pdf);
+            await Task.Run(() => 
+            {
+                PdfWriter writer = new(inputString);
+                PdfDocument pdf = new(writer);
+                Document document = new(pdf);
 
-            ImageData imageData = ImageDataFactory.Create(inputString);
-            Image image = new(imageData);
+                ImageData imageData = ImageDataFactory.Create(inputString);
+                Image image = new(imageData);
 
-            document.Add(image);
-            document.Close();
+                document.Add(image);
+                document.Close();
+            });
         }
     }
 }
