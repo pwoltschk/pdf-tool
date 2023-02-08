@@ -23,7 +23,7 @@ namespace PdfTool.Processors
         {
             var converter = _conversionHandlerFactory.Create(inputPath);
 
-            converter.Convert(inputPath);
+            converter.ConvertAsync(inputPath);
         }
     }
 }
