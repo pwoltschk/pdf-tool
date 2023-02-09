@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PdfTool.Processors.Adapter;
+using PdfTool.Processors.Creation;
+using PdfTool.Processors.Creation.Converter;
+using PdfTool.Services;
 
 namespace PdfTool.Processors
 {
@@ -7,6 +10,8 @@ namespace PdfTool.Processors
     {
         public static void AddProcessors(this IServiceCollection sc)
         {
+            sc.AddTransient<IConversionHandlerFactory, ConversionHandlerFactory>();
+            sc.AddTransient<IPageRemoveService, PageRemoveService>();
             sc.AddTransient<IDirectory, DirectoryAdapter>();
             sc.AddTransient<IPath, PathAdapter>();
             sc.AddTransient<IPdfReader, PdfReaderAdapter>();
