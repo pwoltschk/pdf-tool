@@ -13,10 +13,12 @@ namespace PdfTool.CLI.Commands
         public SplitCommand(
             Func<Type, IProcessor> processorFactory,
             IArgumentsFactory argumentsFactor,
-            IExactlyOneDocumentValidator exactlyOneValidator)
+            IExactlyOneDocumentValidator exactlyOneValidator,
+            INoPageParametersAllowedValidator noPageParametersAllowedValidator)
             : base(processorFactory, argumentsFactor)
         {
             _exactlyOneValidator = exactlyOneValidator;
+            _noPageParametersAllowedValidator = noPageParametersAllowedValidator;
         }
 
         public override void Validate(ProcessorArgs args)
