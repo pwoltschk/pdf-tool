@@ -14,7 +14,7 @@ namespace PdfTool.Processors.Creation.Converter
 
             var libreOfficePath = GetApplicationPath();
 
-            var procStartInfo = new ProcessStartInfo(libreOfficePath, $"--convert-to pdf --nologo --headless --outdir {Path.GetDirectoryName(inputString)} {inputString}")
+            var procStartInfo = new ProcessStartInfo(libreOfficePath, $"--convert-to pdf --nologo --headless --outdir \"{Path.GetDirectoryName(inputString)}\" \"{inputString}\"")
             {
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
