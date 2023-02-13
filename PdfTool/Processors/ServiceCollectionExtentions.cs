@@ -13,7 +13,6 @@ namespace PdfTool.Processors
             sc.AddTransient<IConversionHandlerFactory, ConversionHandlerFactory>();
             sc.AddTransient<IPageRemoveService, PageRemoveService>();
             sc.AddTransient<IDirectory, DirectoryAdapter>();
-            sc.AddTransient<IPath, PathAdapter>();
             sc.AddTransient<IPdfReader, PdfReaderAdapter>();
             sc.AddTransient<IPdfWriter, PdfWriterAdapter>();
             sc.AddTransient<SplitProcessor>();

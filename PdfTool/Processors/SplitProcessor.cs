@@ -1,18 +1,17 @@
 ﻿using PdfTool.Processors;
 using PdfTool.Processors.Adapter;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 internal class SplitProcessor : IProcessor
 {
-    private readonly IPath _path;
     private readonly IDirectory _directory;
     private readonly IPdfReader _pdfReader;
     private readonly IPdfWriter _pdfWriter;
 
-    public SplitProcessor(IPath path, IDirectory directory, IPdfReader pdfReader, IPdfWriter pdfWriter)
+    public SplitProcessor(IDirectory directory, IPdfReader pdfReader, IPdfWriter pdfWriter)
     {
-        _path = path;
         _directory = directory;
         _pdfReader = pdfReader;
         _pdfWriter = pdfWriter;
@@ -25,9 +24,9 @@ internal class SplitProcessor : IProcessor
 
     public async Task Split(string fullPath)
     {
-        var directory = _path.GetDirectoryName(fullPath);
-        var filename = _path.GetFileNameWithoutExtension(fullPath);
-        var outputDirectory = _path.Combine(directory, filename);
+        var directory = Path.GetDirectoryName(fullPath);
+        var filename = Path.GetFileNameWithoutExtension(fullPath);
+        var outputDirectory = Path.Combine(directory, filename);
 
         _directory.CreateDirectory(outputDirectory);
 
@@ -36,7 +35,7 @@ internal class SplitProcessor : IProcessor
             using var pdfDocument = _pdfReader.GetPdfDocument(fullPath);
             for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
             {
-                string outputPdfPath = _path.Combine(outputDirectory, $"{filename}_{page}.pdf");
+                string outputPdfPath = Path.Combine(outputDirectory, $"{filename}_{page}.pdf");
 
                 using var outputDocument = _pdfWriter.GetPdfDocument(outputPdfPath);
                 pdfDocument.CopyPagesTo(page, page, outputDocument);
