@@ -71,6 +71,18 @@ namespace PdfTool.UnitTests
         }
 
         [TestMethod]
+        public void GivenCreate_WithoutOptionsWithSinglePage_ThenParseCorrect()
+        {
+            var args = new string[] { "replace", "C:/MyPath", "2" };
+            var result = _factory.Create(args);
+
+            Assert.AreEqual(1, result.ReferencePaths.Count);
+            Assert.AreEqual("C:/MyPath", result.ReferencePaths[0]);
+            Assert.AreEqual(2, result.FromPage);
+            Assert.AreEqual(0, result.ToPage);
+        }
+
+        [TestMethod]
         public void GivenCreate_WithShortOptions_ThenParseCorrect()
         {
             var args = new string[] { "merge", "-i", "C:/MyPath1", "C:/MyPath2" };
