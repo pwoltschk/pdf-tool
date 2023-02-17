@@ -10,6 +10,8 @@ namespace PdfTool.Processors.Adapter
 
         int GetNumberOfPages();
 
+        void AddNewPage(IPdfPage page);
+
         IPdfPage GetPage(int pageNumber);
 
         public IPdfPage AddPage(IPdfPage page);

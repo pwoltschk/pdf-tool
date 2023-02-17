@@ -1,8 +1,4 @@
-﻿using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas;
-using iText.Kernel.Pdf.Xobject;
-using System;
+﻿using PdfTool.Processors.Adapter;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,25 +6,31 @@ namespace PdfTool.Services
 {
     internal class PageRemoveService : IPageRemoveService
     {
+        private readonly IPdfReader _pdfReader;
+        private readonly IPdfWriter _pdfWriter;
+
+        public PageRemoveService(IPdfReader pdfReader, IPdfWriter pdfWriter)
+        {
+            _pdfReader = pdfReader;
+            _pdfWriter = pdfWriter;
+        }
+
+
         public async Task RemovePages(string inputPdfPath, string outputPdfPath, params int[] pages)
         {
             await Task.Run(() =>
             {
-                using PdfDocument inputPdfDocument = new(new PdfReader(inputPdfPath));
-                using PdfDocument outputPdfDocument = new(new PdfWriter(outputPdfPath));
-                int pageCount = inputPdfDocument.GetNumberOfPages();
+                using var inputPdfDocument = _pdfReader.GetPdfDocument(inputPdfPath);
+                using var outputPdfDocument = _pdfWriter.GetPdfDocument(outputPdfPath);
+                var pageCount = inputPdfDocument.GetNumberOfPages();
 
-                for (int page = 1; page <= pageCount; page++)
+                for (var page = 1; page <= pageCount; page++)
                 {
-                    if (!pages.Contains(page))
-                    {
-                        PdfPage pdfPage = inputPdfDocument.GetPage(page);
-                        PdfFormXObject pageCopy = pdfPage.CopyAsFormXObject(outputPdfDocument);
-                        Rectangle rectangle = pdfPage.GetPageSize();
-                        PageSize pageSize = new(rectangle);
-                        outputPdfDocument.AddNewPage(pageSize);
-                        new PdfCanvas(outputPdfDocument.GetLastPage()).AddXObjectAt(pageCopy, 0, 0);
-                    }
+                    if (pages.Contains(page)) 
+                        continue;
+
+                    var pdfPage = inputPdfDocument.GetPage(page);
+                    outputPdfDocument.AddNewPage(pdfPage);
                 }
             });
         }

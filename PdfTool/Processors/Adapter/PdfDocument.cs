@@ -1,4 +1,7 @@
 ﻿using System;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Xobject;
 
 namespace PdfTool.Processors.Adapter
 {
@@ -25,6 +28,16 @@ namespace PdfTool.Processors.Adapter
         public int GetNumberOfPages()
         {
             return Instance.GetNumberOfPages();
+        }
+
+        public void AddNewPage(IPdfPage page)
+        {
+            var pdfPage = page.Instance;
+            PdfFormXObject pageCopy = pdfPage.CopyAsFormXObject(Instance);
+            Rectangle rectangle = pdfPage.GetPageSize();
+            PageSize pageSize = new(rectangle);
+            Instance.AddNewPage(pageSize);
+            new PdfCanvas(Instance.GetLastPage()).AddXObjectAt(pageCopy, 0, 0);
         }
 
         public void CopyPagesTo(int pageFrom, int pageTo, IPdfDocument pdfDocument)
