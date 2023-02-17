@@ -8,18 +8,18 @@ namespace PdfTool.CLI.Parser
         public List<string> GetValues(string[] options, string longOption, string shortOption)
         {
             var optionValues = new List<string>();
-            for (int i = 0; i < options.Length; i++)
+            for (var i = 0; i < options.Length; i++)
             {
-                if (options[i] == longOption || options[i] == shortOption)
+                if (options[i] != longOption && options[i] != shortOption) 
+                    continue;
+
+                for (var j = i + 1; j < options.Length; j++)
                 {
-                    for (int j = i + 1; j < options.Length; j++)
+                    if (options[j].StartsWith("--") || options[j].StartsWith("-"))
                     {
-                        if (options[j].StartsWith("--") || options[j].StartsWith("-"))
-                        {
-                            break;
-                        }
-                        optionValues.Add(options[j].Trim('"'));
+                        break;
                     }
+                    optionValues.Add(options[j].Trim('"'));
                 }
             }
 

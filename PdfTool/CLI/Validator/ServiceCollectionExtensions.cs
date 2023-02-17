@@ -2,7 +2,7 @@
 
 namespace PdfTool.CLI.Validator
 {
-    public static class ServiceCollectionExtentions
+    public static class ServiceCollectionExtensions
     {
         public static void AddValidators(this IServiceCollection sc)
         {

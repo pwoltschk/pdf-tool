@@ -1,8 +1,9 @@
-﻿using PdfTool.Processors;
-using PdfTool.Processors.Adapter;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using PdfTool.Processors.Adapter;
+
+namespace PdfTool.Processors;
 
 internal class SplitProcessor : IProcessor
 {

@@ -10,11 +10,11 @@ namespace PdfTool.CLI.Commands
         private readonly IProcessor _processor;
         private readonly IArgumentsFactory _argumentsFactory;
 
-        public CommandBase(
+        protected CommandBase(
             Func<Type, IProcessor> processorFactory,
             IArgumentsFactory argumentsFactor)
         {
-            _processor = processorFactory(this.GetType());
+            _processor = processorFactory(GetType());
             _argumentsFactory = argumentsFactor;
         }
 

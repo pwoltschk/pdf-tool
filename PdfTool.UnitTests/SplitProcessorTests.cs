@@ -2,6 +2,7 @@
 using Moq;
 using PdfTool.Processors.Adapter;
 using System.Threading.Tasks;
+using PdfTool.Processors;
 
 namespace PdfTool.UnitTests
 {

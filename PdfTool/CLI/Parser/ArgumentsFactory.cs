@@ -65,21 +65,20 @@ namespace PdfTool.CLI.Parser
                 processorArgs.ToPage = int.Parse(pages[1]);
             }
 
-            if (processorArgs.FromPage == 0 || processorArgs.ToPage == 0)
+            if (processorArgs.FromPage != 0 && processorArgs.ToPage != 0) 
+                return;
+
+            var numbers = args
+                .Select(s => int.TryParse(s, out var n) ? n : (int?)null)
+                .OfType<int>().ToArray();
+
+            if (numbers.Any())
             {
-                var numbers = args
-                    .Select(s => int.TryParse(s, out int n) ? n : (int?)null)
-                    .OfType<int>().ToArray();
-
-                if (numbers.Count() > 0)
-                {
-                    processorArgs.FromPage = numbers[0];
-                }
-                if (numbers.Count() > 1)
-                {
-                    processorArgs.ToPage = numbers[1];
-                }
-
+                processorArgs.FromPage = numbers[0];
+            }
+            if (numbers.Length > 1)
+            {
+                processorArgs.ToPage = numbers[1];
             }
         }
     }

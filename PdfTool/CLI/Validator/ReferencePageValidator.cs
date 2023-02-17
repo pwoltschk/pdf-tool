@@ -14,7 +14,7 @@ namespace PdfTool.CLI.Validator
 
         public void ValidateRange(ProcessorArgs args)
         {
-            if (args.FromPage == 0 || args.FromPage == 0)
+            if (args.FromPage is 0 or 0)
             {
                 throw new ValidationException("This command need at least 2 pages specified");
             }

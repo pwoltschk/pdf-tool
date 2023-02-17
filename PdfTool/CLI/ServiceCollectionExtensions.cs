@@ -7,7 +7,7 @@ using System;
 
 namespace PdfTool.CLI
 {
-    public static class ServiceCollectionExtentions
+    public static class ServiceCollectionExtensions
     {
         public static void AddCommands(this IServiceCollection sc)
         {
@@ -33,34 +33,38 @@ namespace PdfTool.CLI
                 {
                     return serviceProvider.GetService<CompressProcessor>();
                 }
-                else if (t == typeof(SplitCommand))
+
+                if (t == typeof(SplitCommand))
                 {
                     return serviceProvider.GetService<SplitProcessor>();
                 }
-                else if (t == typeof(CreateCommand))
+
+                if (t == typeof(CreateCommand))
                 {
                     return serviceProvider.GetService<CreationProcessor>();
                 }
-                else if (t == typeof(RemoveCommand))
+
+                if (t == typeof(RemoveCommand))
                 {
                     return serviceProvider.GetService<DeleteProcessor>();
                 }
-                else if (t == typeof(ExtractCommand))
+
+                if (t == typeof(ExtractCommand))
                 {
                     return serviceProvider.GetService<ExtractProcessor>();
                 }
-                else if (t == typeof(ReplaceCommand))
+
+                if (t == typeof(ReplaceCommand))
                 {
                     return serviceProvider.GetService<ReplaceProcessor>();
                 }
-                else if (t == typeof(MergeCommand))
+
+                if (t == typeof(MergeCommand))
                 {
                     return serviceProvider.GetService<MergeProcessor>();
                 }
-                else
-                {
-                    return null;
-                }
+
+                return null;
             });
         }
 

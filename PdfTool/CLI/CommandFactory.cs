@@ -5,7 +5,7 @@ namespace PdfTool.CLI
     internal class CommandFactory<TCommand> : ICommandFactory<TCommand>
         where TCommand : class, ICommand
     {
-        readonly ICommand _command;
+        private readonly ICommand _command;
         public CommandFactory(TCommand command)
         {
 
