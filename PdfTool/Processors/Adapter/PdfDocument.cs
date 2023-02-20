@@ -7,7 +7,7 @@ namespace PdfTool.Processors.Adapter
 {
     public class PdfDocument : IPdfDocument
     {
-        public iText.Kernel.Pdf.PdfDocument Instance { get; private set; }
+        public iText.Kernel.Pdf.PdfDocument Instance { get; }
 
 
         public PdfDocument(iText.Kernel.Pdf.PdfReader reader)
@@ -33,8 +33,8 @@ namespace PdfTool.Processors.Adapter
         public void AddNewPage(IPdfPage page)
         {
             var pdfPage = page.Instance;
-            PdfFormXObject pageCopy = pdfPage.CopyAsFormXObject(Instance);
-            Rectangle rectangle = pdfPage.GetPageSize();
+            var pageCopy = pdfPage.CopyAsFormXObject(Instance);
+            var rectangle = pdfPage.GetPageSize();
             PageSize pageSize = new(rectangle);
             Instance.AddNewPage(pageSize);
             new PdfCanvas(Instance.GetLastPage()).AddXObjectAt(pageCopy, 0, 0);

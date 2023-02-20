@@ -25,8 +25,8 @@ namespace PdfTool.Processors
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_compressed.pdf";
             await Task.Run(() =>
             {
-                using IPdfDocument pdfDocument = _pdfReader.GetPdfDocument(inputPdfPath);
-                using IPdfDocument pdfDocOptimized = _pdfWriter.GetPdfDocument(outputPdfPath, true);
+                using IPdfDocument pdfDocument = _pdfReader.Read(inputPdfPath);
+                using IPdfDocument pdfDocOptimized = _pdfWriter.Write(outputPdfPath, true);
                 for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
                 {
                     IPdfPage pdfPage = pdfDocument.GetPage(page);

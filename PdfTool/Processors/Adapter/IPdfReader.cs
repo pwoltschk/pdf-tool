@@ -4,6 +4,6 @@ namespace PdfTool.Processors.Adapter
 {
     public interface IPdfReader : IDisposable
     {
-        IPdfDocument GetPdfDocument(string path);
+        IPdfDocument Read(string path);
     }
 }

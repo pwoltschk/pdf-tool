@@ -36,7 +36,7 @@ namespace PdfTool.UnitTests
             var mockPdfDocument = new Mock<IPdfDocument>();
             mockPdfDocument.Setup(d => d.GetNumberOfPages()).Returns(numberOfPages);
 
-            _mockPdfReader.Setup(r => r.GetPdfDocument(fullPath)).Returns(mockPdfDocument.Object);
+            _mockPdfReader.Setup(r => r.Read(fullPath)).Returns(mockPdfDocument.Object);
 
             var mockOutputDocument = new Mock<IPdfDocument>();
 
@@ -45,7 +45,7 @@ namespace PdfTool.UnitTests
 
             // Assert
             _mockDirectory.Verify(d => d.CreateDirectory(outputDirectory), Times.Once);
-            _mockPdfReader.Verify(r => r.GetPdfDocument(fullPath), Times.Once);
+            _mockPdfReader.Verify(r => r.Read(fullPath), Times.Once);
             mockPdfDocument.Verify(d => d.CopyPagesTo(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<IPdfDocument>()), Times.Exactly(numberOfPages));
         }
     }

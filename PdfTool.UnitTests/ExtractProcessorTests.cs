@@ -36,7 +36,7 @@ namespace PdfTool.UnitTests
             int fromPage = 2;
             int toPage = 5;
             int pageCount = 10;
-            _pdfReaderMock.Setup(m => m.GetPdfDocument(inputPdfPath)).Returns(_pdfDocumentMock.Object);
+            _pdfReaderMock.Setup(m => m.Read(inputPdfPath)).Returns(_pdfDocumentMock.Object);
             _pdfDocumentMock.Setup(m => m.GetNumberOfPages()).Returns(pageCount);
 
             // Act

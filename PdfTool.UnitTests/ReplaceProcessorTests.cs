@@ -34,8 +34,8 @@ namespace PdfTool.UnitTests
             var page1Mock = new Mock<IPdfPage>();
             var page2Mock = new Mock<IPdfPage>();
 
-            _pdfReaderMock.Setup(r => r.GetPdfDocument(inputPdfPath)).Returns(inputDocumentMock.Object);
-            _pdfWriterMock.Setup(w => w.GetPdfDocument(outputPdfPath, false)).Returns(outputDocumentMock.Object);
+            _pdfReaderMock.Setup(r => r.Read(inputPdfPath)).Returns(inputDocumentMock.Object);
+            _pdfWriterMock.Setup(w => w.Write(outputPdfPath, false)).Returns(outputDocumentMock.Object);
             inputDocumentMock.Setup(d => d.GetNumberOfPages()).Returns(2);
             inputDocumentMock.Setup(d => d.GetPage(1)).Returns(page1Mock.Object);
             inputDocumentMock.Setup(d => d.GetPage(2)).Returns(page2Mock.Object);
@@ -46,8 +46,8 @@ namespace PdfTool.UnitTests
             await _replaceProcessor.Replace(inputPdfPath, 1, 2);
 
             // Assert
-            _pdfReaderMock.Verify(r => r.GetPdfDocument(inputPdfPath), Times.Once);
-            _pdfWriterMock.Verify(w => w.GetPdfDocument(outputPdfPath, false), Times.Once);
+            _pdfReaderMock.Verify(r => r.Read(inputPdfPath), Times.Once);
+            _pdfWriterMock.Verify(w => w.Write(outputPdfPath, false), Times.Once);
             inputDocumentMock.Verify(d => d.GetNumberOfPages(), Times.Once);
             inputDocumentMock.Verify(d => d.GetPage(1), Times.Once);
             inputDocumentMock.Verify(d => d.GetPage(2), Times.Once);
@@ -65,7 +65,7 @@ namespace PdfTool.UnitTests
             var inputPdfPath = "input.pdf";
             var inputDocumentMock = new Mock<IPdfDocument>();
 
-            _pdfReaderMock.Setup(r => r.GetPdfDocument(inputPdfPath)).Returns(inputDocumentMock.Object);
+            _pdfReaderMock.Setup(r => r.Read(inputPdfPath)).Returns(inputDocumentMock.Object);
             inputDocumentMock.Setup(d => d.GetNumberOfPages()).Returns(2);
 
             // Act

@@ -28,10 +28,10 @@ namespace PdfTool.Processors
 
             await Task.Run(() =>
             {
-                using IPdfDocument mergedPdfDocument = _pdfWriter.GetPdfDocument($"{outputPdfPath}_merged.pdf");
+                using IPdfDocument mergedPdfDocument = _pdfWriter.Write($"{outputPdfPath}_merged.pdf");
                 foreach (string pdfFile in pdf)
                 {
-                    using IPdfDocument pdfDocument = _pdfReader.GetPdfDocument(pdfFile);
+                    using IPdfDocument pdfDocument = _pdfReader.Read(pdfFile);
                     int pageCount = pdfDocument.GetNumberOfPages();
                     for (int page = 1; page <= pageCount; page++)
                     {

@@ -6,7 +6,7 @@ namespace PdfTool.Processors.Adapter
     {
         private PdfWriter _pdfWriter;
 
-        public IPdfDocument GetPdfDocument(string path, bool compressionModeOn = false)
+        public IPdfDocument Write(string path, bool compressionModeOn = false)
         {
             if (compressionModeOn)
             {

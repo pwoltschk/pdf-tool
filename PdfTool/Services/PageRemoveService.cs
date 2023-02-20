@@ -20,8 +20,8 @@ namespace PdfTool.Services
         {
             await Task.Run(() =>
             {
-                using var inputPdfDocument = _pdfReader.GetPdfDocument(inputPdfPath);
-                using var outputPdfDocument = _pdfWriter.GetPdfDocument(outputPdfPath);
+                using var inputPdfDocument = _pdfReader.Read(inputPdfPath);
+                using var outputPdfDocument = _pdfWriter.Write(outputPdfPath);
                 var pageCount = inputPdfDocument.GetNumberOfPages();
 
                 for (var page = 1; page <= pageCount; page++)

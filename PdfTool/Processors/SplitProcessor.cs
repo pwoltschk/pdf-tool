@@ -33,12 +33,12 @@ internal class SplitProcessor : IProcessor
 
         await Task.Run(() =>
         {
-            using var pdfDocument = _pdfReader.GetPdfDocument(fullPath);
+            using var pdfDocument = _pdfReader.Read(fullPath);
             for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
             {
                 string outputPdfPath = Path.Combine(outputDirectory, $"{filename}_{page}.pdf");
 
-                using var outputDocument = _pdfWriter.GetPdfDocument(outputPdfPath);
+                using var outputDocument = _pdfWriter.Write(outputPdfPath);
                 pdfDocument.CopyPagesTo(page, page, outputDocument);
             }
         });

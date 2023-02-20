@@ -29,8 +29,8 @@ namespace PdfTool.UnitTests
             var pdfDocumentMock = new Mock<IPdfDocument>();
             var pdfPageMock = new Mock<IPdfPage>();
 
-            _pdfReaderMock.Setup(x => x.GetPdfDocument(It.IsAny<string>())).Returns(pdfDocumentMock.Object);
-            _pdfWriterMock.Setup(x => x.GetPdfDocument(It.IsAny<string>(), false)).Returns(pdfDocumentMock.Object);
+            _pdfReaderMock.Setup(x => x.Read(It.IsAny<string>())).Returns(pdfDocumentMock.Object);
+            _pdfWriterMock.Setup(x => x.Write(It.IsAny<string>(), false)).Returns(pdfDocumentMock.Object);
             pdfDocumentMock.Setup(x => x.GetNumberOfPages()).Returns(1);
             pdfDocumentMock.Setup(x => x.GetPage(It.IsAny<int>())).Returns(pdfPageMock.Object);
 
@@ -38,8 +38,8 @@ namespace PdfTool.UnitTests
             await _mergeProcessor.Merge(pdfPath);
 
             // Assert
-            _pdfReaderMock.Verify(x => x.GetPdfDocument(It.IsAny<string>()), Times.Exactly(2));
-            _pdfWriterMock.Verify(x => x.GetPdfDocument(It.IsAny<string>(), false), Times.Exactly(1));
+            _pdfReaderMock.Verify(x => x.Read(It.IsAny<string>()), Times.Exactly(2));
+            _pdfWriterMock.Verify(x => x.Write(It.IsAny<string>(), false), Times.Exactly(1));
             pdfDocumentMock.Verify(x => x.GetNumberOfPages(), Times.Exactly(2));
             pdfDocumentMock.Verify(x => x.GetPage(It.IsAny<int>()), Times.Exactly(2));
         }

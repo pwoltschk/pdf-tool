@@ -2,7 +2,7 @@
 {
     internal class PdfPage : IPdfPage
     {
-        public iText.Kernel.Pdf.PdfPage Instance { get; private set; }
+        public iText.Kernel.Pdf.PdfPage Instance { get; }
 
         public PdfPage(iText.Kernel.Pdf.PdfPage page)
         {

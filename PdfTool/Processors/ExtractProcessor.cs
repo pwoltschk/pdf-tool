@@ -37,7 +37,7 @@ namespace PdfTool.Processors
 
         private int GetPageCount(string pdfFilePath)
         {
-            using IPdfDocument pdfDocument = _pdfReader.GetPdfDocument(pdfFilePath);
+            using IPdfDocument pdfDocument = _pdfReader.Read(pdfFilePath);
             return pdfDocument.GetNumberOfPages();
         }
     }

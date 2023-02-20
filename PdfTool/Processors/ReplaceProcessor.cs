@@ -29,8 +29,8 @@ namespace PdfTool.Processors
 
             await Task.Run(() =>
             {
-                using IPdfDocument inputDocument = _reader.GetPdfDocument(inputPdfPath);
-                using IPdfDocument outputDocument = _writer.GetPdfDocument(outputPdfPath);
+                using IPdfDocument inputDocument = _reader.Read(inputPdfPath);
+                using IPdfDocument outputDocument = _writer.Write(outputPdfPath);
                 int pageCount = inputDocument.GetNumberOfPages();
 
                 if (page1 < 1 || page2 < 1 || page1 > pageCount || page2 > pageCount)
