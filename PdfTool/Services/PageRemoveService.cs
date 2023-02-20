@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace PdfTool.Services
 {
-    internal class PageRemoveService : IPageRemoveService
+    public class PageRemoveService : IPageRemoveService
     {
         private readonly IPdfReader _pdfReader;
         private readonly IPdfWriter _pdfWriter;
