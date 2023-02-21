@@ -27,7 +27,7 @@ namespace PdfTool.UnitTests
         public async Task GivenReplaceProcessor_WhenReplaceCalled_SwapsPages()
         {
             // Arrange
-            var inputPdfPath = "input.pdf";
+            const string inputPdfPath = "input.pdf";
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_replacedPage1with2.pdf";
             var inputDocumentMock = new Mock<IPdfDocument>();
             var outputDocumentMock = new Mock<IPdfDocument>();
@@ -62,7 +62,7 @@ namespace PdfTool.UnitTests
         public async Task GivenReplaceProcessor_WhenCalledWithInvalidPageNumbers_ThenThrowsArgumentException()
         {
             // Arrange
-            var inputPdfPath = "input.pdf";
+            const string inputPdfPath = "input.pdf";
             var inputDocumentMock = new Mock<IPdfDocument>();
 
             _pdfReaderMock.Setup(r => r.Read(inputPdfPath)).Returns(inputDocumentMock.Object);

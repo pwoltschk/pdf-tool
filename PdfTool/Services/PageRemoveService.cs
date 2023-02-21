@@ -26,7 +26,7 @@ namespace PdfTool.Services
 
                 for (var page = 1; page <= pageCount; page++)
                 {
-                    if (pages.Contains(page)) 
+                    if (pages.Contains(page))
                         continue;
 
                     var pdfPage = inputPdfDocument.GetPage(page);

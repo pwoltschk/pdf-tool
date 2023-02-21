@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PdfTool.Processors;
 using PdfTool.Processors.Adapter;
 using System.Threading.Tasks;
-using PdfTool.Processors;
 
 namespace PdfTool.UnitTests
 {
@@ -28,17 +28,15 @@ namespace PdfTool.UnitTests
         public async Task GivenSplitProcessor_WhenSplit_ThenCreatesDirectoryAndSplitsPdf()
         {
             // Arrange
-            var fullPath = "outputDirectory\\fullPath.pdf";
-            var outputDirectory = "outputDirectory\\fullPath";
-            var numberOfPages = 5;
+            const string fullPath = "outputDirectory\\fullPath.pdf";
+            const string outputDirectory = "outputDirectory\\fullPath";
+            const int numberOfPages = 5;
 
 
             var mockPdfDocument = new Mock<IPdfDocument>();
             mockPdfDocument.Setup(d => d.GetNumberOfPages()).Returns(numberOfPages);
 
             _mockPdfReader.Setup(r => r.Read(fullPath)).Returns(mockPdfDocument.Object);
-
-            var mockOutputDocument = new Mock<IPdfDocument>();
 
             // Act
             await _splitProcessor.Split(fullPath);

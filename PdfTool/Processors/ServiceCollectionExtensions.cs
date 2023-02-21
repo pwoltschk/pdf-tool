@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PdfTool.Processors.Adapter;
 using PdfTool.Processors.Creation;
-using PdfTool.Processors.Creation.Converter;
 using PdfTool.Services;
 
 namespace PdfTool.Processors
 {
-    public static class ServiceCollectionExtentions
+    public static class ServiceCollectionExtensions
     {
         public static void AddProcessors(this IServiceCollection sc)
         {

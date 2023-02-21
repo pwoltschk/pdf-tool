@@ -29,30 +29,30 @@ namespace PdfTool.Processors
 
             await Task.Run(() =>
             {
-                using IPdfDocument inputDocument = _reader.Read(inputPdfPath);
-                using IPdfDocument outputDocument = _writer.Write(outputPdfPath);
-                int pageCount = inputDocument.GetNumberOfPages();
+                using var inputDocument = _reader.Read(inputPdfPath);
+                using var outputDocument = _writer.Write(outputPdfPath);
+                var pageCount = inputDocument.GetNumberOfPages();
 
                 if (page1 < 1 || page2 < 1 || page1 > pageCount || page2 > pageCount)
                 {
                     throw new ArgumentException("Invalid page numbers. Both page1 and page2 should be valid page numbers.");
                 }
 
-                for (int page = 1; page <= pageCount; page++)
+                for (var page = 1; page <= pageCount; page++)
                 {
                     if (page == page1)
                     {
-                        IPdfPage pageToSwap = inputDocument.GetPage(page2).CopyTo(outputDocument);
+                        var pageToSwap = inputDocument.GetPage(page2).CopyTo(outputDocument);
                         outputDocument.AddPage(pageToSwap);
                     }
                     else if (page == page2)
                     {
-                        IPdfPage pageToSwap = inputDocument.GetPage(page1).CopyTo(outputDocument);
+                        var pageToSwap = inputDocument.GetPage(page1).CopyTo(outputDocument);
                         outputDocument.AddPage(pageToSwap);
                     }
                     else
                     {
-                        IPdfPage currentPage = inputDocument.GetPage(page).CopyTo(outputDocument);
+                        var currentPage = inputDocument.GetPage(page).CopyTo(outputDocument);
                         outputDocument.AddPage(currentPage);
                     }
                 }

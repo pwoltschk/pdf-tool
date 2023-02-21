@@ -10,7 +10,7 @@ namespace PdfTool.Processors.Creation.Converter
     {
         public async Task ConvertAsync(string inputString)
         {
-            await Task.Run(() => 
+            await Task.Run(() =>
             {
                 PdfWriter writer = new(inputString);
                 PdfDocument pdf = new(writer);

@@ -18,7 +18,7 @@ namespace PdfTool.UnitTests
         [TestMethod]
         public void GivenCreate_WithMultipleInputOptions_ThenParseCorrect()
         {
-            var args = new string[] { "merge", "--input", "C:/MyPath1", "C:/MyPath2" };
+            var args = new[] { "merge", "--input", "C:/MyPath1", "C:/MyPath2" };
             var result = _factory.Create(args);
 
             Assert.AreEqual(2, result.ReferencePaths.Count);
@@ -29,7 +29,7 @@ namespace PdfTool.UnitTests
         [TestMethod]
         public void GivenCreate_WithFromAndToOptions_ThenParseCorrect()
         {
-            var args = new string[] { "extract", "--input", "C:/MyPath", "--from:2", "--to:4" };
+            var args = new[] { "extract", "--input", "C:/MyPath", "--from:2", "--to:4" };
             var result = _factory.Create(args);
 
             Assert.AreEqual(1, result.ReferencePaths.Count);
@@ -41,7 +41,7 @@ namespace PdfTool.UnitTests
         [TestMethod]
         public void GivenCreate_WithPageOption_ThenParseCorrect()
         {
-            var args = new string[] { "replace", "--input", "C:/MyPath", "--page", "2", "4" };
+            var args = new[] { "replace", "--input", "C:/MyPath", "--page", "2", "4" };
             var result = _factory.Create(args);
 
             Assert.AreEqual(1, result.ReferencePaths.Count);
@@ -54,14 +54,14 @@ namespace PdfTool.UnitTests
         [ExpectedException(typeof(NotSupportedException))]
         public void GivenCreate_WithFromAndPageOptions_ShouldThrowException()
         {
-            var args = new string[] { "extract", "--input", "C:/MyPath", "--from:2", "--page", "3", "4" };
+            var args = new[] { "extract", "--input", "C:/MyPath", "--from:2", "--page", "3", "4" };
             _factory.Create(args);
         }
 
         [TestMethod]
         public void GivenCreate_WithoutOptions_ThenParseCorrect()
         {
-            var args = new string[] { "extract", "C:/MyPath", "2", "4" };
+            var args = new[] { "extract", "C:/MyPath", "2", "4" };
             var result = _factory.Create(args);
 
             Assert.AreEqual(1, result.ReferencePaths.Count);
@@ -73,7 +73,7 @@ namespace PdfTool.UnitTests
         [TestMethod]
         public void GivenCreate_WithoutOptionsWithSinglePage_ThenParseCorrect()
         {
-            var args = new string[] { "replace", "C:/MyPath", "2" };
+            var args = new[] { "replace", "C:/MyPath", "2" };
             var result = _factory.Create(args);
 
             Assert.AreEqual(1, result.ReferencePaths.Count);
@@ -85,7 +85,7 @@ namespace PdfTool.UnitTests
         [TestMethod]
         public void GivenCreate_WithShortOptions_ThenParseCorrect()
         {
-            var args = new string[] { "merge", "-i", "C:/MyPath1", "C:/MyPath2" };
+            var args = new[] { "merge", "-i", "C:/MyPath1", "C:/MyPath2" };
             var result = _factory.Create(args);
 
             Assert.AreEqual(2, result.ReferencePaths.Count);
@@ -96,7 +96,7 @@ namespace PdfTool.UnitTests
         [TestMethod]
         public void GivenCreate_WithMixedOptions_ThenParseCorrect()
         {
-            var args = new string[] { "replace", "--input", "C:/MyPath", "-p", "2", "4" };
+            var args = new[] { "replace", "--input", "C:/MyPath", "-p", "2", "4" };
             var result = _factory.Create(args);
 
             Assert.AreEqual(1, result.ReferencePaths.Count);

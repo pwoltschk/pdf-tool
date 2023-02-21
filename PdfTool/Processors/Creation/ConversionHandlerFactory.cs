@@ -9,7 +9,7 @@ namespace PdfTool.Processors.Creation
     {
         public IConversionHandler Create(string inputPath)
         {
-            string fileType = Path.GetExtension(inputPath).TrimStart('.');
+            var fileType = Path.GetExtension(inputPath).TrimStart('.');
 
             if (CreationFileType.Word.Value.Contains(fileType))
                 return new WordConversionHandler();
@@ -17,8 +17,7 @@ namespace PdfTool.Processors.Creation
                 return new TxtConversionHandler();
             if (CreationFileType.Image.Value.Contains(fileType))
                 return new ImageConversionHandler();
-            else
-                throw new NotSupportedException();
+            throw new NotSupportedException();
         }
     }
 }

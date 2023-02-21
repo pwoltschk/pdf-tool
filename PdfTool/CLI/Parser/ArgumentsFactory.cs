@@ -65,7 +65,7 @@ namespace PdfTool.CLI.Parser
                 processorArgs.ToPage = int.Parse(pages[1]);
             }
 
-            if (processorArgs.FromPage != 0 && processorArgs.ToPage != 0) 
+            if (processorArgs.FromPage != 0 && processorArgs.ToPage != 0)
                 return;
 
             var numbers = args

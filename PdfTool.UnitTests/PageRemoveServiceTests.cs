@@ -28,14 +28,14 @@ namespace PdfTool.UnitTests
         }
 
         [DataTestMethod]
-        [DataRow(new int[] { 1, 2, 3 }, 5)]
-        [DataRow(new int[] { 2, 3, 4 }, 6)]
-        [DataRow(new int[] { 1, 3, 5 }, 7)]
+        [DataRow(new[] { 1, 2, 3 }, 5)]
+        [DataRow(new[] { 2, 3, 4 }, 6)]
+        [DataRow(new[] { 1, 3, 5 }, 7)]
         public async Task RemovePages_RemovesCorrectPages(int[] pagesToRemove, int numberOfPages)
         {
             // Arrange
-            string inputPdfPath = "input.pdf";
-            string outputPdfPath = "output.pdf";
+            const string inputPdfPath = "input.pdf";
+            const string outputPdfPath = "output.pdf";
 
             _mockPdfReader.Setup(r => r.Read(inputPdfPath)).Returns(_mockInputPdfDocument.Object);
             _mockPdfWriter.Setup(w => w.Write(outputPdfPath, false)).Returns(_mockOutputPdfDocument.Object);

@@ -28,14 +28,14 @@ namespace PdfTool.Processors
 
             await Task.Run(() =>
             {
-                using IPdfDocument mergedPdfDocument = _pdfWriter.Write($"{outputPdfPath}_merged.pdf");
-                foreach (string pdfFile in pdf)
+                using var mergedPdfDocument = _pdfWriter.Write($"{outputPdfPath}_merged.pdf");
+                foreach (var pdfFile in pdf)
                 {
-                    using IPdfDocument pdfDocument = _pdfReader.Read(pdfFile);
-                    int pageCount = pdfDocument.GetNumberOfPages();
-                    for (int page = 1; page <= pageCount; page++)
+                    using var pdfDocument = _pdfReader.Read(pdfFile);
+                    var pageCount = pdfDocument.GetNumberOfPages();
+                    for (var page = 1; page <= pageCount; page++)
                     {
-                        IPdfPage pdfPage = pdfDocument.GetPage(page);
+                        var pdfPage = pdfDocument.GetPage(page);
                         mergedPdfDocument.AddPage(pdfPage.CopyTo(mergedPdfDocument));
                     }
                 }

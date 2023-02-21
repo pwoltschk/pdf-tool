@@ -24,7 +24,7 @@ namespace PdfTool.Processors
 
         public async Task Extract(string inputPdfPath, int fromPage, int toPage)
         {
-            int pageCount = GetPageCount(inputPdfPath);
+            var pageCount = GetPageCount(inputPdfPath);
             var totalPages = Enumerable.Range(1, pageCount);
             var pagesToExtract = Enumerable.Range(fromPage, toPage - fromPage + 1);
 
@@ -37,7 +37,7 @@ namespace PdfTool.Processors
 
         private int GetPageCount(string pdfFilePath)
         {
-            using IPdfDocument pdfDocument = _pdfReader.Read(pdfFilePath);
+            using var pdfDocument = _pdfReader.Read(pdfFilePath);
             return pdfDocument.GetNumberOfPages();
         }
     }

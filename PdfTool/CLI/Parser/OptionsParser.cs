@@ -10,7 +10,7 @@ namespace PdfTool.CLI.Parser
             var optionValues = new List<string>();
             for (var i = 0; i < options.Length; i++)
             {
-                if (options[i] != longOption && options[i] != shortOption) 
+                if (options[i] != longOption && options[i] != shortOption)
                     continue;
 
                 for (var j = i + 1; j < options.Length; j++)

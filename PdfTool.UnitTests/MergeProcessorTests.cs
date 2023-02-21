@@ -25,7 +25,7 @@ namespace PdfTool.UnitTests
         public async Task Merge_CallsExpectedMethods()
         {
             // Arrange
-            var pdfPath = new string[] { "page1.pdf", "page2.pdf" };
+            var pdfPath = new[] { "page1.pdf", "page2.pdf" };
             var pdfDocumentMock = new Mock<IPdfDocument>();
             var pdfPageMock = new Mock<IPdfPage>();
 

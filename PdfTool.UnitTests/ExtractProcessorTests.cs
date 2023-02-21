@@ -3,7 +3,6 @@ using Moq;
 using PdfTool.Processors;
 using PdfTool.Processors.Adapter;
 using PdfTool.Services;
-using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,10 +31,10 @@ namespace PdfTool.UnitTests
         public async Task Extract_ShouldCallRemovePagesWithCorrectParameters()
         {
             // Arrange
-            string inputPdfPath = "input.pdf";
-            int fromPage = 2;
-            int toPage = 5;
-            int pageCount = 10;
+            const string inputPdfPath = "input.pdf";
+            const int fromPage = 2;
+            const int toPage = 5;
+            const int pageCount = 10;
             _pdfReaderMock.Setup(m => m.Read(inputPdfPath)).Returns(_pdfDocumentMock.Object);
             _pdfDocumentMock.Setup(m => m.GetNumberOfPages()).Returns(pageCount);
 

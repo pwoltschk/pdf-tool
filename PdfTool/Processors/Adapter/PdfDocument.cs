@@ -1,7 +1,6 @@
-﻿using System;
-using iText.Kernel.Geom;
+﻿using iText.Kernel.Geom;
 using iText.Kernel.Pdf.Canvas;
-using iText.Kernel.Pdf.Xobject;
+using System;
 
 namespace PdfTool.Processors.Adapter
 {

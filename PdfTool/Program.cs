@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace PdfTool
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            IHostBuilder builder = Host.CreateDefaultBuilder(args);
+            var builder = Host.CreateDefaultBuilder(args);
 
             builder.ConfigureServices(sp =>
             {
@@ -20,7 +20,7 @@ namespace PdfTool
                 sp.AddSingleton<PdfToolService>();
             });
 
-            using IHost host = builder.Build();
+            using var host = builder.Build();
 
             using var serviceScope = host.Services.CreateScope();
             var services = serviceScope.ServiceProvider;
