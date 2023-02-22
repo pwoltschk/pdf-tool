@@ -25,7 +25,7 @@ namespace PdfTool.Processors.Creation.Converter
             var process = new Process { StartInfo = procStartInfo };
             process.EnableRaisingEvents = true;
 
-            process.Exited += (sender, args) =>
+            process.Exited += (_, _) =>
             {
                 if (process.ExitCode != 0)
                 {
@@ -52,7 +52,7 @@ namespace PdfTool.Processors.Creation.Converter
                     path = "/usr/bin/soffice";
                     break;
                 case PlatformID.Win32NT:
-                    string binaryDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    var binaryDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                     path = Path.Combine(binaryDirectory, "Libre", "program", "soffice.exe");
                     break;
                 default:
