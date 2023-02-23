@@ -11,23 +11,19 @@ namespace PdfTool
     {
         private static async Task Main(string[] args)
         {
-            var builder = Host.CreateDefaultBuilder(args);
+            var serviceCollection = new ServiceCollection();
 
-            builder.ConfigureServices(sp =>
-            {
-                sp.AddProcessors();
-                sp.AddCommands();
-                sp.AddSingleton<PdfToolService>();
-            });
 
-            using var host = builder.Build();
+            serviceCollection.AddProcessors();
+            serviceCollection.AddCommands();
+            serviceCollection.AddSingleton<PdfToolService>();
 
-            using var serviceScope = host.Services.CreateScope();
-            var services = serviceScope.ServiceProvider;
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
 
             try
             {
-                var service = services.GetRequiredService<PdfToolService>();
+                var service = serviceProvider.GetRequiredService<PdfToolService>();
                 await service.ExecuteCommand(args);
             }
             catch (ValidationException exception)
