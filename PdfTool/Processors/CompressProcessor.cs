@@ -20,7 +20,7 @@ namespace PdfTool.Processors
         {
             await Compress(args.ReferencePaths.Single());
         }
-        public async Task Compress(string inputPdfPath)
+        private async Task Compress(string inputPdfPath)
         {
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_compressed.pdf";
             await Task.Run(() =>

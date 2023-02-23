@@ -25,9 +25,11 @@ namespace PdfTool.UnitTests
         public async Task Merge_CallsExpectedMethods()
         {
             // Arrange
-            var pdfPath = new[] { "page1.pdf", "page2.pdf" };
             var pdfDocumentMock = new Mock<IPdfDocument>();
             var pdfPageMock = new Mock<IPdfPage>();
+            var args = new ProcessorArgs();
+            args.ReferencePaths.Add("page1.pdf");
+            args.ReferencePaths.Add("page2.pdf");
 
             _pdfReaderMock.Setup(x => x.Read(It.IsAny<string>())).Returns(pdfDocumentMock.Object);
             _pdfWriterMock.Setup(x => x.Write(It.IsAny<string>(), false)).Returns(pdfDocumentMock.Object);
@@ -35,7 +37,7 @@ namespace PdfTool.UnitTests
             pdfDocumentMock.Setup(x => x.GetPage(It.IsAny<int>())).Returns(pdfPageMock.Object);
 
             // Act
-            await _mergeProcessor.Merge(pdfPath);
+            await _mergeProcessor.ExecuteAsync(args);
 
             // Assert
             _pdfReaderMock.Verify(x => x.Read(It.IsAny<string>()), Times.Exactly(2));

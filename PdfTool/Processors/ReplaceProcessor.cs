@@ -23,7 +23,7 @@ namespace PdfTool.Processors
         }
 
 
-        public async Task Replace(string inputPdfPath, int page1, int page2)
+        private async Task Replace(string inputPdfPath, int page1, int page2)
         {
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_replacedPage{page1}with{page2}.pdf";
 

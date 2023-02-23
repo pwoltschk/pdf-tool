@@ -23,7 +23,7 @@ internal class SplitProcessor : IProcessor
         await Split(args.ReferencePaths.Single());
     }
 
-    public async Task Split(string fullPath)
+    private async Task Split(string fullPath)
     {
         var directory = Path.GetDirectoryName(fullPath);
         var filename = Path.GetFileNameWithoutExtension(fullPath);

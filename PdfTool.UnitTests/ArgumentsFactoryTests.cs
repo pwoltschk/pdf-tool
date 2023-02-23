@@ -109,7 +109,7 @@ namespace PdfTool.UnitTests
         [ExpectedException(typeof(FormatException))]
         public void GivenCreate_WithInvalidPageNumber_ShouldThrowException()
         {
-            var args = new string[] { "extract", "--input", "C:/MyPath", "--from:abc", "--to:4" };
+            var args = new[] { "extract", "--input", "C:/MyPath", "--from:abc", "--to:4" };
             _factory.Create(args);
         }
 

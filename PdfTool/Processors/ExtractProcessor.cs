@@ -22,7 +22,7 @@ namespace PdfTool.Processors
             await Extract(args.ReferencePaths.Single(), args.FromPage, args.ToPage);
         }
 
-        public async Task Extract(string inputPdfPath, int fromPage, int toPage)
+        private async Task Extract(string inputPdfPath, int fromPage, int toPage)
         {
             var pageCount = GetPageCount(inputPdfPath);
             var totalPages = Enumerable.Range(1, pageCount);

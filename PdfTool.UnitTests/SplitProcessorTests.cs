@@ -32,6 +32,9 @@ namespace PdfTool.UnitTests
             const string outputDirectory = "outputDirectory\\fullPath";
             const int numberOfPages = 5;
 
+            var args = new ProcessorArgs();
+            args.ReferencePaths.Add(fullPath);
+
 
             var mockPdfDocument = new Mock<IPdfDocument>();
             mockPdfDocument.Setup(d => d.GetNumberOfPages()).Returns(numberOfPages);
@@ -39,7 +42,7 @@ namespace PdfTool.UnitTests
             _mockPdfReader.Setup(r => r.Read(fullPath)).Returns(mockPdfDocument.Object);
 
             // Act
-            await _splitProcessor.Split(fullPath);
+            await _splitProcessor.ExecuteAsync(args);
 
             // Assert
             _mockDirectory.Verify(d => d.CreateDirectory(outputDirectory), Times.Once);

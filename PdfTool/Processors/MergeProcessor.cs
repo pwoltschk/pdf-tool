@@ -22,7 +22,7 @@ namespace PdfTool.Processors
         }
 
 
-        public async Task Merge(params string[] pdf)
+        private async Task Merge(params string[] pdf)
         {
             var outputPdfPath = Path.GetFullPath(pdf.First());
 

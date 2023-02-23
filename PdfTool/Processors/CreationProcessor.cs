@@ -19,7 +19,7 @@ namespace PdfTool.Processors
             await Task.Run(() => Create(args.ReferencePaths.Single()));
         }
 
-        public void Create(string inputPath)
+        private void Create(string inputPath)
         {
             var converter = _conversionHandlerFactory.Create(inputPath);
 

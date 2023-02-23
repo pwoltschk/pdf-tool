@@ -29,6 +29,14 @@ namespace PdfTool.UnitTests
             // Arrange
             const string inputPdfPath = "input.pdf";
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_replacedPage1with2.pdf";
+
+            var args = new ProcessorArgs()
+            {
+                FromPage = 1,
+                ToPage = 2,
+            };
+            args.ReferencePaths.Add(inputPdfPath);
+
             var inputDocumentMock = new Mock<IPdfDocument>();
             var outputDocumentMock = new Mock<IPdfDocument>();
             var page1Mock = new Mock<IPdfPage>();
@@ -43,7 +51,7 @@ namespace PdfTool.UnitTests
             page2Mock.Setup(p => p.CopyTo(outputDocumentMock.Object)).Returns(page1Mock.Object);
 
             // Act
-            await _replaceProcessor.Replace(inputPdfPath, 1, 2);
+            await _replaceProcessor.ExecuteAsync(args);
 
             // Assert
             _pdfReaderMock.Verify(r => r.Read(inputPdfPath), Times.Once);
@@ -63,13 +71,15 @@ namespace PdfTool.UnitTests
         {
             // Arrange
             const string inputPdfPath = "input.pdf";
+            var args = new ProcessorArgs();
+            args.ReferencePaths.Add(inputPdfPath);
             var inputDocumentMock = new Mock<IPdfDocument>();
 
             _pdfReaderMock.Setup(r => r.Read(inputPdfPath)).Returns(inputDocumentMock.Object);
             inputDocumentMock.Setup(d => d.GetNumberOfPages()).Returns(2);
 
             // Act
-            await _replaceProcessor.Replace(inputPdfPath, 0, 3);
+            await _replaceProcessor.ExecuteAsync(args);
         }
     }
 }

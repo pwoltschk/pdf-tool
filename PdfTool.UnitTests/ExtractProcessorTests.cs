@@ -35,11 +35,17 @@ namespace PdfTool.UnitTests
             const int fromPage = 2;
             const int toPage = 5;
             const int pageCount = 10;
+            var args = new ProcessorArgs()
+            {
+                FromPage = fromPage,
+                ToPage = toPage,
+            };
+            args.ReferencePaths.Add(inputPdfPath);
             _pdfReaderMock.Setup(m => m.Read(inputPdfPath)).Returns(_pdfDocumentMock.Object);
             _pdfDocumentMock.Setup(m => m.GetNumberOfPages()).Returns(pageCount);
 
             // Act
-            await _extractProcessor.Extract(inputPdfPath, fromPage, toPage);
+            await _extractProcessor.ExecuteAsync(args);
 
             // Assert
             _pageRemoveServiceMock.Verify(m => m.RemovePages(

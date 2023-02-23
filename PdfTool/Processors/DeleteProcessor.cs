@@ -20,14 +20,14 @@ namespace PdfTool.Processors
         }
 
 
-        public async Task Delete(string inputPdfPath, int pageToDelete)
+        private async Task Delete(string inputPdfPath, int pageToDelete)
         {
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_removedPage{pageToDelete}.pdf";
 
             await _pageRemoveService.RemovePages(inputPdfPath, outputPdfPath, pageToDelete);
         }
 
-        public async Task Delete(string inputPdfPath, int fromPage, int toPage)
+        private async Task Delete(string inputPdfPath, int fromPage, int toPage)
         {
             var pagesToDelete = Enumerable.Range(fromPage, toPage - fromPage + 1);
             var outputPdfPath = $"{Path.GetDirectoryName(inputPdfPath)}/{Path.GetFileNameWithoutExtension(inputPdfPath)}_removedPage{fromPage}-{toPage}.pdf";
