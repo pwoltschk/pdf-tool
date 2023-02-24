@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using PdfTool.CLI;
 using PdfTool.Processors;
 using System;
@@ -13,11 +12,9 @@ namespace PdfTool
         {
             var serviceCollection = new ServiceCollection();
 
-
             serviceCollection.AddProcessors();
             serviceCollection.AddCommands();
             serviceCollection.AddSingleton<PdfToolService>();
-
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
