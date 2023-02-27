@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using PdfTool.CLI;
 using PdfTool.Processors;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PdfTool
@@ -12,9 +14,15 @@ namespace PdfTool
         {
             var serviceCollection = new ServiceCollection();
 
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
             serviceCollection.AddProcessors();
             serviceCollection.AddCommands();
             serviceCollection.AddSingleton<PdfToolService>();
+            serviceCollection.Configure<ApplicationInfo>(configuration.GetSection(ApplicationInfo.Section));
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
