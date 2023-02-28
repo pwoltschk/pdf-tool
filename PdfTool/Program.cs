@@ -4,6 +4,7 @@ using PdfTool.CLI;
 using PdfTool.Processors;
 using System;
 using System.IO;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace PdfTool
@@ -15,7 +16,7 @@ namespace PdfTool
             var serviceCollection = new ServiceCollection();
 
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
