@@ -1,4 +1,5 @@
-﻿using PdfTool.CLI.Parser;
+﻿using Microsoft.Extensions.Options;
+using PdfTool.CLI.Parser;
 using PdfTool.Processors;
 using System;
 using System.Threading.Tasks;
@@ -7,7 +8,8 @@ namespace PdfTool.CLI.Commands
 {
     internal class VersionCommand : CommandBase
     {
-        public VersionCommand(Func<Type, IProcessor> processorFactory, IArgumentsFactory argumentsFactor) : base(processorFactory, argumentsFactor)
+        public VersionCommand(Func<Type, IProcessor> processorFactory, IArgumentsFactory argumentsFactor, IOptions<ApplicationInfo> applicationInfo) 
+            : base(processorFactory, argumentsFactor, applicationInfo)
         {
         }
 

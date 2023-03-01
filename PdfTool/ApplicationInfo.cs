@@ -1,9 +1,11 @@
-﻿namespace PdfTool
+﻿using System.Collections.Generic;
+
+namespace PdfTool
 {
     public class ApplicationInfo
     {
         public static string Section = nameof(ApplicationInfo);
         public string MainText { get; set; }
-        public CommandDetails CommandDetails { get; set; }
+        public Dictionary<string, string> CommandDetails { get; set; }
     }
 }

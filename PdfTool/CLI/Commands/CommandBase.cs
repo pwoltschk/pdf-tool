@@ -2,6 +2,7 @@
 using PdfTool.Processors;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace PdfTool.CLI.Commands
 {
@@ -9,13 +10,16 @@ namespace PdfTool.CLI.Commands
     {
         private readonly IProcessor _processor;
         private readonly IArgumentsFactory _argumentsFactory;
+        private readonly ApplicationInfo _applicationInfo;
 
         protected CommandBase(
             Func<Type, IProcessor> processorFactory,
-            IArgumentsFactory argumentsFactor)
+            IArgumentsFactory argumentsFactor, 
+            IOptions<ApplicationInfo> applicationInfo)
         {
             _processor = processorFactory(GetType());
             _argumentsFactory = argumentsFactor;
+            _applicationInfo = applicationInfo.Value;
         }
 
         public virtual async Task ExecuteAsync(string[] args)
@@ -26,8 +30,7 @@ namespace PdfTool.CLI.Commands
 
             if (args[1] is "--help" or "-h")
             {
-                Console.WriteLine("help text......");
-
+                Console.WriteLine(_applicationInfo.CommandDetails[GetType().Name]);
             }
             else
             {

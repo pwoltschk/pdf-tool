@@ -1,4 +1,5 @@
-﻿using PdfTool.CLI.Parser;
+﻿using Microsoft.Extensions.Options;
+using PdfTool.CLI.Parser;
 using PdfTool.CLI.Validator;
 using PdfTool.Processors;
 using System;
@@ -13,8 +14,9 @@ namespace PdfTool.CLI.Commands
             Func<Type, IProcessor> processorFactory,
             IArgumentsFactory argumentsFactor,
             IExactlyOneDocumentValidator exactlyOneValidator,
+            IOptions<ApplicationInfo> applicationInfo,
             INoPageParametersAllowedValidator noPageParametersAllowedValidator)
-            : base(processorFactory, argumentsFactor)
+            : base(processorFactory, argumentsFactor, applicationInfo)
         {
             _exactlyOneValidator = exactlyOneValidator;
             _noPageParametersAllowedValidator = noPageParametersAllowedValidator;
