@@ -15,15 +15,15 @@ namespace PdfTool.CLI
         {
             sc.AddValidators();
 
-            sc.AddCommand<CompressCommand, CompressProcessor>();
-            sc.AddCommand<HelpCommand, IProcessor>();
-            sc.AddCommand<VersionCommand, IProcessor>();
-            sc.AddCommand<SplitCommand, SplitProcessor>();
-            sc.AddCommand<CreateCommand, CreationProcessor>();
-            sc.AddCommand<RemoveCommand, DeleteProcessor>();
-            sc.AddCommand<ExtractCommand, ExtractProcessor>();
-            sc.AddCommand<ReplaceCommand, ReplaceProcessor>();
-            sc.AddCommand<MergeCommand, MergeProcessor>();
+            sc.AddCommandBoundToType<CompressCommand, CompressProcessor>();
+            sc.AddCommandBoundToType<HelpCommand, IProcessor>();
+            sc.AddCommandBoundToType<VersionCommand, IProcessor>();
+            sc.AddCommandBoundToType<SplitCommand, SplitProcessor>();
+            sc.AddCommandBoundToType<CreateCommand, CreationProcessor>();
+            sc.AddCommandBoundToType<RemoveCommand, DeleteProcessor>();
+            sc.AddCommandBoundToType<ExtractCommand, ExtractProcessor>();
+            sc.AddCommandBoundToType<ReplaceCommand, ReplaceProcessor>();
+            sc.AddCommandBoundToType<MergeCommand, MergeProcessor>();
 
             sc.AddTransient<IArgumentsFactory, ArgumentsFactory>();
             sc.AddTransient<IOptionsParser, OptionsParser>();
@@ -39,7 +39,7 @@ namespace PdfTool.CLI
             });
         }
 
-        private static void AddCommand<TCommand,TProcessor>(this IServiceCollection sc)
+        private static void AddCommandBoundToType<TCommand,TProcessor>(this IServiceCollection sc)
             where TCommand : class, ICommand
         {
             TypeBoundRegistrations.Add(typeof(TCommand),typeof(TProcessor));
