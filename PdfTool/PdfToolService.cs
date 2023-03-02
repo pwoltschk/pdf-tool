@@ -81,7 +81,7 @@ namespace PdfTool
                     await _mergeCommand.ExecuteAsync(args);
                     break;
                 default:
-                    Console.WriteLine($"Unknown command: {args[0]}");
+                    Console.WriteLine($"The specified command: {args[0]} is not available");
                     break;
             }
         }
